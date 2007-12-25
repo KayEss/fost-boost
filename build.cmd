@@ -1,5 +1,7 @@
 call "c:\Program Files\Microsoft Visual Studio 8\VC\bin\vcvars32.bat"
-cd src\tools\jam
+rmdir build /s /q
+svn export src build
+cd build\tools\jam
 call build_dist.bat
 copy boost-jam-3.1.16-1-ntx86\bjam.exe ..\..\..
 cd ..\..\..
