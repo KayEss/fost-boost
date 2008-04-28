@@ -1,11 +1,17 @@
 #! /bin/bash
 
-# Create build structure
+echo Remove old build direcotry
 rm -r build
+echo Copy src checkout to build
 svn export src build
 
-# Create build tools
+echo Create build tools
 cd build/tools/jam
 ./build_dist.sh
-cd ../../..
+cd ../..
 
+echo Configuring
+./configure
+
+echo Ending
+cd ..
