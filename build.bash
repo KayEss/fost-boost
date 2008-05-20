@@ -11,8 +11,9 @@ cd build/tools/jam
 cd ../..
 cp -v ./build/tools/jam/src/bin.linuxx86_64/bjam ~/bin/
 
-echo Configuring
+echo Configure then make
 ./configure
+make all
 
 echo Ending
 cd ..
