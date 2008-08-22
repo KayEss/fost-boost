@@ -1,4 +1,4 @@
-cd build\tools\jam
+cd src\tools\jam
 call build_dist.bat
 copy boost-jam-3.1.16-1-ntx86\bjam.exe ..\..\..
 cd ..\..\..
