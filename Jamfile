@@ -19,14 +19,15 @@ rule boost-lib ( libs * )
         local filename-rel-dll = $(prefix) $(name) $(tool) $(version) ".dll" ;
         lib $(dll-target:J) : : <file>$(filename-rel-dll:J) <variant>release ;
 
-        local filename-dbg-lib = $(prefix) $(name) $(tool) "gt-" $(version) ".lib" ;
+        local filename-dbg-lib = $(prefix) $(name) $(tool) "gd-" $(version) ".lib" ;
         lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug ;
 
-        local filename-dbg-dll = $(prefix) $(name) $(tool) "gt-" $(version) ".dll" ;
+        local filename-dbg-dll = $(prefix) $(name) $(tool) "gd-" $(version) ".dll" ;
         lib $(dll-target:J) : : <file>$(filename-dbg-dll:J) <variant>debug ;
     }
+
     install ../dist/lib : $(libs) ;
-    install ../dist/dll : $(dll-targets) ;
+    install ../dist/bin : $(dll-targets) ;
 }
 
 boost-lib boost-date_time boost-filesystem boost-regex boost-thread ;
