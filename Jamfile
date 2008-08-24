@@ -2,29 +2,31 @@
 # Works around a bug in boost.build
 project Boost : requirements -<threading>multi ;
 
+rule boost-lib ( libs * )
+{
+    local dll-targets = ;
+    for local curlib in $(libs) {
+        local name = [ MATCH "^boost-(.*)" : $(curlib) ] ;
+        local prefix = "install/lib/boost_" ;
+        local tool = "-vc80-mt-" ;
+        local version = "1_35" ;
+        local dll-target = $(curlib) "-dll" ;
+        dll-targets += $(dll-target:J) ;
 
-lib boost-thread
-    :
-    : <file>install/lib/boost_thread-vc80-mt-1_35.lib <variant>release
-    ;
-lib boost-thread
-    :
-    : <file>install/lib/boost_thread-vc80-mt-gd-1_35.lib <variant>debug
-    ;
-lib boost-thread-dll
-    :
-    : <file>install/lib/boost_thread-vc80-mt-1_35.dll <variant>release
-    ;
-lib boost-thread-dll
-    :
-    : <file>install/lib/boost_thread-vc80-mt-gd-1_35.dll <variant>debug
-    ;
+        local filename-rel-lib = $(prefix) $(name) $(tool) $(version) ".lib" ;
+        lib $(curlib) : : <file>$(filename-rel-lib:J) <variant>release ;
 
-install ../dist/lib
-    :
-        boost-thread
-    ;
-install ../dist/bin
-    :
-        boost-thread-dll
-    ;
+        local filename-rel-dll = $(prefix) $(name) $(tool) $(version) ".dll" ;
+        lib $(dll-target:J) : : <file>$(filename-rel-dll:J) <variant>release ;
+
+        local filename-dbg-lib = $(prefix) $(name) $(tool) "gt-" $(version) ".lib" ;
+        lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug ;
+
+        local filename-dbg-dll = $(prefix) $(name) $(tool) "gt-" $(version) ".dll" ;
+        lib $(dll-target:J) : : <file>$(filename-dbg-dll:J) <variant>debug ;
+    }
+    install ../dist/lib : $(libs) ;
+    install ../dist/dll : $(dll-targets) ;
+}
+
+boost-lib boost-date_time boost-filesystem boost-regex boost-thread ;
