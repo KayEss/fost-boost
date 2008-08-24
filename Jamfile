@@ -1,0 +1,30 @@
+
+# Works around a bug in boost.build
+project Boost : requirements -<threading>multi ;
+
+
+lib boost-thread
+    :
+    : <file>install/lib/boost_thread-vc80-mt-1_35.lib <variant>release
+    ;
+lib boost-thread
+    :
+    : <file>install/lib/boost_thread-vc80-mt-gd-1_35.lib <variant>debug
+    ;
+lib boost-thread-dll
+    :
+    : <file>install/lib/boost_thread-vc80-mt-1_35.dll <variant>release
+    ;
+lib boost-thread-dll
+    :
+    : <file>install/lib/boost_thread-vc80-mt-gd-1_35.dll <variant>debug
+    ;
+
+install ../dist/lib
+    :
+        boost-thread
+    ;
+install ../dist/bin
+    :
+        boost-thread-dll
+    ;
