@@ -17,16 +17,15 @@ rule boost-lib ( libs * )
         lib $(curlib) : : <file>$(filename-rel-lib:J) <variant>release ;
 
         local filename-rel-dll = $(prefix) $(name) $(tool) $(version) ".dll" ;
-        lib $(dll-target:J) : : <file>$(filename-rel-dll:J) <variant>release ;
+        lib $(dll-target:J) : $(curlib) : <file>$(filename-rel-dll:J) <variant>release ;
 
         local filename-dbg-lib = $(prefix) $(name) $(tool) "gd-" $(version) ".lib" ;
         lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug ;
 
         local filename-dbg-dll = $(prefix) $(name) $(tool) "gd-" $(version) ".dll" ;
-        lib $(dll-target:J) : : <file>$(filename-dbg-dll:J) <variant>debug ;
+        lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug ;
     }
 
-    install ../dist/lib : $(libs) ;
     install ../dist/bin : $(dll-targets) ;
 }
 
