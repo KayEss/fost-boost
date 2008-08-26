@@ -13,17 +13,19 @@ rule boost-lib ( libs * )
         local dll-target = $(curlib) "-dll" ;
         dll-targets += $(dll-target:J) ;
 
+        lib $(curlib) $(dll-target:J) ;
+
         local filename-rel-lib = $(prefix) $(name) $(tool) $(version) ".lib" ;
-        lib $(curlib) : : <file>$(filename-rel-lib:J) <variant>release ;
+        lib $(curlib) : : <file>$(filename-rel-lib:J) <variant>release <toolset>msvc ;
 
         local filename-rel-dll = $(prefix) $(name) $(tool) $(version) ".dll" ;
-        lib $(dll-target:J) : $(curlib) : <file>$(filename-rel-dll:J) <variant>release ;
+        lib $(dll-target:J) : $(curlib) : <file>$(filename-rel-dll:J) <variant>release <toolset>msvc ;
 
         local filename-dbg-lib = $(prefix) $(name) $(tool) "gd-" $(version) ".lib" ;
-        lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug ;
+        lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug <toolset>msvc ;
 
         local filename-dbg-dll = $(prefix) $(name) $(tool) "gd-" $(version) ".dll" ;
-        lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug ;
+        lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug <toolset>msvc ;
     }
 
     install ../dist/bin : $(dll-targets) ;
