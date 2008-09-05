@@ -8,7 +8,12 @@ then {
         cd tools/jam
         ./build_dist.sh
         cd ../..
-        cp -v ./build/tools/jam/src/bin.linuxx86_64/bjam ~/bin/
+        if test -e ./build/tools/jam/src/bin.linuxx86_64/bjam
+        then {
+            cp -v ./build/tools/jam/src/bin.linuxx86_64/bjam ~/bin/
+        } else {
+            cp -v ./build/tools/jam/src/bin.linuxx86/bjam ~/bin/
+        }
 }
 fi
 
