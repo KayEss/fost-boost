@@ -1,23 +1,22 @@
 #! /bin/bash
 
-echo Remove old build directory
-rm -rf build
-echo Copy src checkout to build
-svn export src build
+cd src
 
-echo Create build tools
-cd build/tools/jam
-./build_dist.sh
-cd ../..
-cp -v ./build/tools/jam/src/bin.linuxx86_64/bjam ~/bin/
+if test ! -e ~/bin/bjam
+then {
+        echo Create build tools
+        cd tools/jam
+        ./build_dist.sh
+        cd ../..
+        cp -v ./build/tools/jam/src/bin.linuxx86_64/bjam ~/bin/
+}
+fi
 
 echo Configure then make
 ./configure
 make all
 
-echo Installing
-rm -rf ../../dist/boost
-bjam --toolset=gcc --prefix ../../dist/boost install
+rm -rf ../install
+bjam --toolset=gcc --prefix=../install install
 
-echo Ending
 cd ..
