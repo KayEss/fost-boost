@@ -14,6 +14,7 @@ then {
         } else {
             cp -v ./build/tools/jam/src/bin.linuxx86/bjam ~/bin/
         }
+        fi
 }
 fi
 
@@ -22,6 +23,6 @@ echo Configure then make
 make all
 
 rm -rf ../install
-bjam --toolset=gcc --prefix=../install install
+bjam --toolset=gcc --prefix=../install install --without-mpi
 
 cd ..
