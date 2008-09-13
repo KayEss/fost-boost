@@ -23,6 +23,6 @@ echo Configure then make
 make all
 
 rm -rf ../install
-bjam --toolset=gcc --prefix=../install install --without-mpi
+bjam --toolset=gcc debug release install target-os=linux asynch-exceptions=on exception-handling=on extern-c-nothrow=off --prefix=../install --without-mpi
 
 cd ..
