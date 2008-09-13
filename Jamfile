@@ -17,7 +17,7 @@ rule boost-lib ( libs * )
         local prefix-win = "install/lib/boost_" ;
         local prefix-lin = "install/lib/libboost_" ;
         local msvc = "-vc80-" ;
-        local gcc = "-gcc42-" ;
+        local gcc = "-gcc" ;
         local version = "1_35" ;
         local dll-target = $(curlib) "-dll" ;
         dll-targets += $(dll-target:J) ;
@@ -36,12 +36,16 @@ rule boost-lib ( libs * )
         local filename-dbg-dll = $(prefix-win) $(name) $(msvc) "mt-" "gd-" $(version) ".dll" ;
         lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug <target-os>windows ;
 
-        local filename-rel-so = $(prefix-lin) $(name) $(gcc) "mt-" $(version) ".so" ;
-        lib $(curlib) : : <file>$(filename-rel-so:J) <variant>release <target-os>linux ;
+        local filename-rel-42-so = $(prefix-lin) $(name) $(gcc) "42-" "mt-" $(version) ".so" ;
+        lib $(curlib) : : <file>$(filename-rel-42-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.2.4 ;
+        local filename-rel-43-so = $(prefix-lin) $(name) $(gcc) "43-" "mt-" $(version) ".so" ;
+        lib $(curlib) : : <file>$(filename-rel-43-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.3.2 ;
         lib $(dll-target:J) : $(curlib) : <variant>release <target-os>linux ;
 
-        local filename-dbg-so = $(prefix-lin) $(name) $(gcc) "mt-" "d-" $(version) ".so" ;
-        lib $(curlib) : : <file>$(filename-dbg-so:J) <variant>debug <target-os>linux ;
+        local filename-dbg-42-so = $(prefix-lin) $(name) $(gcc) "42-" "mt-" "d-" $(version) ".so" ;
+        lib $(curlib) : : <file>$(filename-dbg-42-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.2.4 ;
+        local filename-dbg-43-so = $(prefix-lin) $(name) $(gcc) "43-" "mt-" "d-" $(version) ".so" ;
+        lib $(curlib) : : <file>$(filename-dbg-43-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.3.2 ;
         lib $(dll-target:J) : $(curlib) : <variant>debug <target-os>linux ;
     }
 
