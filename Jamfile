@@ -49,7 +49,7 @@ rule boost-lib ( libs * )
         lib $(dll-target:J) : : <variant>debug <target-os>linux ;
     }
 
-    install ../dist/bin : $(dll-targets) ;
+    install ../dist/bin : $(dll-targets) : <install-dependencies>on ;
 }
 
 boost-lib boost-date_time boost-filesystem boost-regex boost-thread ;
