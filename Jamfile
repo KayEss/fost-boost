@@ -15,7 +15,7 @@ rule boost-lib ( libs * )
     for local curlib in $(libs) {
         local name = [ MATCH "^boost-(.*)" : $(curlib) ] ;
         local prefix-win = "install/lib/boost_" ;
-        local prefix-lin = "install/lib/libboost_" ;
+        local prefix-lin = "Boost/install/lib/libboost_" ;
         local msvc = "-vc80-" ;
         local gcc = "-gcc" ;
         local version = "1_35" ;
@@ -38,17 +38,21 @@ rule boost-lib ( libs * )
 
         local filename-rel-42-so = $(prefix-lin) $(name) $(gcc) "42-" "mt-" $(version) ".so" ;
         lib $(curlib) : : <file>$(filename-rel-42-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.2.3 ;
+        lib $(dll-target:J) : : <name>$(filename-rel-42-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.2.3 ;
         lib $(curlib) : : <file>$(filename-rel-42-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.2.4 ;
+        lib $(dll-target:J) : : <name>$(filename-rel-42-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.2.4 ;
         local filename-rel-43-so = $(prefix-lin) $(name) $(gcc) "43-" "mt-" $(version) ".so" ;
         lib $(curlib) : : <file>$(filename-rel-43-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.3.2 ;
-        lib $(dll-target:J) : : <name>rt <variant>release <target-os>linux ;
+        lib $(dll-target:J) : : <name>$(filename-rel-43-so:J) <variant>release <target-os>linux <toolset-gcc:version>4.3.2 ;
 
         local filename-dbg-42-so = $(prefix-lin) $(name) $(gcc) "42-" "mt-" "d-" $(version) ".so" ;
         lib $(curlib) : : <file>$(filename-dbg-42-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.2.3 ;
+        lib $(dll-target:J) : : <name>$(filename-dbg-42-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.2.3 ;
         lib $(curlib) : : <file>$(filename-dbg-42-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.2.4 ;
+        lib $(dll-target:J) : : <name>$(filename-dbg-42-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.2.4 ;
         local filename-dbg-43-so = $(prefix-lin) $(name) $(gcc) "43-" "mt-" "d-" $(version) ".so" ;
         lib $(curlib) : : <file>$(filename-dbg-43-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.3.2 ;
-        lib $(dll-target:J) : : <name>rt <variant>debug <target-os>linux ;
+        lib $(dll-target:J) : : <name>$(filename-dbg-43-so:J) <variant>debug <target-os>linux <toolset-gcc:version>4.3.2 ;
     }
 
     install ../dist/bin : $(dll-targets) : <install-dependencies>on ;
