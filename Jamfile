@@ -34,7 +34,7 @@ rule boost-libraries ( libs * )
         local name = [ MATCH "^boost-(.*)" : $(curlib) ] ;
         local prefix-win = "install/lib/boost_" ;
         local msvc = "-vc80-" ;
-        local version = "1_35" ;
+        local version = "1_36" ;
         local dll-target = $(curlib) "-dll" ;
         dll-targets += $(dll-target:J) ;
 
