@@ -53,6 +53,7 @@ rule boost-libraries ( libs * )
 boost-libraries
         boost-date_time
         boost-filesystem
+        boost-python
         boost-regex
         boost-thread
     ;
