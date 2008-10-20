@@ -1,14 +1,4 @@
 
-# Works around a bug in boost.build
-project Boost
-    :
-        requirements
-        -<threading>multi
-        -<exception-handling>on
-        -<asynch-exceptions>on
-        -<extern-c-nothrow>off
-    ;
-
 rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
 {
     local prefix-lin = "install/lib/libboost_" ;
@@ -60,4 +50,9 @@ rule boost-libraries ( libs * )
     install ../dist/bin : $(dll-targets) : <install-dependencies>on ;
 }
 
-boost-libraries boost-date_time boost-filesystem boost-regex boost-thread ;
+boost-libraries
+        boost-date_time
+        boost-filesystem
+        boost-regex
+        boost-thread
+    ;
