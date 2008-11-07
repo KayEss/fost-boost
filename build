@@ -2,27 +2,24 @@
 
 cd src
 
-if test ! -e ~/bin/bjam
+if test ! -e bjam
 then {
     echo Create build tools
     cd tools/jam
     ./build_dist.sh
     if test -e ./src/bin.linuxx86_64/bjam
     then {
-        cp -v ./src/bin.linuxx86_64/bjam ~/bin/
+        cp -v ./src/bin.linuxx86_64/bjam ../..
     } else {
-        cp -v ./src/bin.linuxx86/bjam ~/bin/
+        cp -v ./src/bin.linuxx86/bjam ../..
     }
     fi
     cd ../..
+    ./configure
+    cp bjam ..
 }
 fi
 
-echo Configure then make
-./configure
-make all
-
-rm -rf ../install
-bjam --toolset=gcc debug release install target-os=linux asynch-exceptions=on exception-handling=on extern-c-nothrow=off --prefix=../install --without-mpi
+../compile
 
 cd ..
