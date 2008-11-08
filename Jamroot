@@ -53,7 +53,23 @@ rule boost-libraries ( libs * )
 boost-libraries
         boost-date_time
         boost-filesystem
+        boost-graph
+        boost-iostreams
+        boost-math_c99
+        boost-math_c99f
+        boost-math_c99l
+        boost-math_tr1
+        boost-math_tr1f
+        boost-math_tr1l
+        boost-prg_exec_monitor
+        boost-program_options
         boost-python
         boost-regex
+        boost-serialization
+        boost-signals
+        boost-system
         boost-thread
+        boost-unit_test_framework
+        boost-wave
+        boost-wserialization
     ;
