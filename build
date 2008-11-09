@@ -1,24 +1,48 @@
 #! /bin/bash
 
-cd src
+if test -z $1
+then {
+    export MAJOR=1_37
+} else {
+    export MAJOR=1_$1
+}
+fi
+
+if test -z $2
+then {
+    export MINOR=0
+} else {
+    export MINOR=$2
+}
+fi
+
+export VERSION=$MAJOR\_$MINOR
+echo Using Boost_$VERSION
+
+if test ! -e $VERSION
+then {
+    svn co http://svn.boost.org/svn/boost/tags/release/Boost_$VERSION $VERSION
+}
+fi
+
+cd $VERSION
 
 if test ! -e bjam
 then {
     echo Create build tools
     cd tools/jam
     ./build_dist.sh
-    if test -e ./src/bin.linuxx86_64/bjam
+    if test -e stage/bin.linuxx86_64/bjam
     then {
-        cp -v ./src/bin.linuxx86_64/bjam ../..
+        cp -v stage/bin.linuxx86_64/bjam ../..
     } else {
-        cp -v ./src/bin.linuxx86/bjam ../..
+        cp -v stage/bin.linuxx86/bjam ../..
     }
     fi
     cd ../..
-    cp -v bjam ..
 }
 fi
 
-../compile
-
+../compile $VERSION
 cd ..
+install $MAJOR $MINOR
