@@ -2,9 +2,9 @@
 
 if test -z $1
 then {
-    export MAJOR=1_37
+    export MAJOR=37
 } else {
-    export MAJOR=1_$1
+    export MAJOR=$1
 }
 fi
 
@@ -16,7 +16,7 @@ then {
 }
 fi
 
-export VERSION=$MAJOR\_$MINOR
+export VERSION=1_$MAJOR\_$MINOR
 echo Using Boost_$VERSION
 
 if test ! -e $VERSION

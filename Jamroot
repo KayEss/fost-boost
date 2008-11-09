@@ -1,10 +1,12 @@
 
+include ../boost-version.jam ;
+
 rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
 {
-    local prefix-lin = "install/lib/libboost_" ;
+    local prefix-lin = "boost/lib/libboost_" ;
     local gcc = "-gcc" ;
-    local version-short = "1_36" ;
-    local version-full = "1.36.0" ;
+    local version-short = "1_$(BOOST_VERSION_MAJOR)" ;
+    local version-full = "1.$(BOOST_VERSION_MAJOR).0" ;
 
     local filename-rel-so-full = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".so." $(version-full) ;
     lib $(curlib) : : <file>$(filename-rel-so-full:J) <variant>release <target-os>linux <toolset-gcc:version>$(gcc-version) ;
@@ -22,9 +24,9 @@ rule boost-libraries ( libs * )
     local dll-targets = ;
     for local curlib in $(libs) {
         local name = [ MATCH "^boost-(.*)" : $(curlib) ] ;
-        local prefix-win = "install/lib/boost_" ;
+        local prefix-win = "boost/lib/boost_" ;
         local msvc = "-vc80-" ;
-        local version = "1_36" ;
+        local version = "1_$(BOOST_VERSION_MAJOR)" ;
         local dll-target = $(curlib) "-dll" ;
         dll-targets += $(dll-target:J) ;
 
