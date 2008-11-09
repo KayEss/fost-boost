@@ -15,8 +15,7 @@ then {
     }
     fi
     cd ../..
-    ./configure
-    cp bjam ..
+    cp -v bjam ..
 }
 fi
 
