@@ -1,5 +1,6 @@
 
-include ../boost-version.jam ;
+path-constant TOP : . ;
+include $(TOP)/../boost-version.jam ;
 
 rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
 {
