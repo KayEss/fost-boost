@@ -45,4 +45,4 @@ fi
 
 ../compile $VERSION
 cd ..
-install $MAJOR $MINOR
+./install $MAJOR $MINOR

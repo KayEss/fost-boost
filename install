@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cp -v $1_$2/bjam ..
+cp -v $1\_$2/bjam ..
 
 echo Making ../boost-build.jam
 rm ../boost-build.jam

@@ -1,4 +1,4 @@
 #! /bin/bash
 
-../bjam --toolset=gcc tools --without-mpi target-os=linux asynch-exceptions=on exception-handling=on extern-c-nothrow=off --prefix=../boost
-../bjam --toolset=gcc debug release install --without-mpi target-os=linux asynch-exceptions=on exception-handling=on extern-c-nothrow=off --prefix=../boost
+./bjam --toolset=gcc tools --without-mpi target-os=linux asynch-exceptions=on exception-handling=on extern-c-nothrow=off --prefix=../boost
+./bjam --toolset=gcc debug release install --without-mpi target-os=linux asynch-exceptions=on exception-handling=on extern-c-nothrow=off --prefix=../boost
