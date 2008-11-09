@@ -1,4 +1,2 @@
-cd %1
-copy bjam ..
-cd ..
+copy %1\bjam.exe ..
 copy boost-build.jam ..
