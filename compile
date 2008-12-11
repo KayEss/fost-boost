@@ -1,4 +1,4 @@
 #! /bin/bash
 
-./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc tools --without-mpi target-os=linux --prefix=../boost
+./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc tools --without-mpi --prefix=../boost
 ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc debug release install --without-mpi --prefix=../boost
