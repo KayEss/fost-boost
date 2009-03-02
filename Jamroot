@@ -20,6 +20,25 @@ rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
     lib $(dll-lib) : $(curlib) : <file>$(filename-dbg-so:J) <variant>debug <target-os>linux <toolset-gcc:version>$(gcc-version) ;
 }
 
+rule boost-library-darwin ( curlib : dll-lib : stem-name : libver : gcc-version )
+{
+    local prefix-darwin = "boost/lib/libboost_" ;
+    local gcc = "-xgcc" ;
+    local version-short = "1_$(BOOST_VERSION_MAJOR)" ;
+    local version-full = "1.$(BOOST_VERSION_MAJOR).0" ;
+
+    local filename-rel-so-full = $(prefix-darwin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".a" ;
+    lib $(curlib) : : <file>$(filename-rel-so-full:J) <variant>release <target-os>darwin ;
+    local filename-rel-so = $(prefix-darwin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".dylib" ;
+    lib $(dll-lib) : $(curlib) : <file>$(filename-rel-so:J) <variant>release <target-os>darwin ;
+
+    local filename-dbg-so-full = $(prefix-darwin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".a" ;
+    lib $(curlib) : : <file>$(filename-dbg-so-full:J) <variant>debug <target-os>darwin ;
+    local filename-dbg-so = $(prefix-darwin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".dylib" ;
+    lib $(dll-lib) : $(curlib) : <file>$(filename-dbg-so:J) <variant>debug <target-os>darwin ;
+
+}
+
 rule boost-libraries ( libs * )
 {
     local dll-targets = ;
@@ -44,6 +63,8 @@ rule boost-libraries ( libs * )
 
         local filename-dbg-dll = $(prefix-win) $(name) $(msvc) "mt-" "gd-" $(version) ".dll" ;
         lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug <target-os>windows ;
+
+        boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.1" ;
 
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.3" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.4" ;

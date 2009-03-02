@@ -36,7 +36,14 @@ then {
     then {
         cp -v stage/bin.linuxx86_64/bjam ../..
     } else {
-        cp -v stage/bin.linuxx86/bjam ../..
+        if test -e stage/bin.macosxx86/bjam
+	then {
+	    cp -v stage/bin.macosxx86/bjam ../..
+	}
+        else {
+            cp -v stage/bin.linuxx86/bjam ../..
+        }
+        fi
     }
     fi
     cd ../..
