@@ -70,6 +70,7 @@ rule boost-libraries ( libs * )
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.4" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "43-" : "4.3.2" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "43-" : "4.3.3" ;
+        boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "44-" : "4.4.1" ;
     }
 
     install ../dist/bin : $(dll-targets) : <install-dependencies>on ;
