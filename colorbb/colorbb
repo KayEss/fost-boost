@@ -1,0 +1,13 @@
+#!/bin/bash
+#
+# Wrapper around bjam, to colorize it's output and pipe through less.
+# Jumps to the first error that occurs during the build process.
+#
+# BEGIN OF CONFIGURATION 
+# Update settings below if necessary:
+COLORBB=`dirname $0`/Boost/colorbb/colorbb.pl
+BJAM=`dirname $0`/bjam.run
+# END OF CONFIGURATION
+
+${BJAM} "$@" 2>&1 | ${COLORBB}
+exit ${PIPESTATUS[0]}
