@@ -1,0 +1,5 @@
+#!/bin/bash
+cd `dirname $0`/../..
+mv bjam bjam.run
+cp Boost/colorbb/colorbb bjam
+
