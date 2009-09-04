@@ -1,4 +1,5 @@
 #! /bin/bash
+cd `dirname $0`
 
 cp -v 1_$1\_$2/bjam ..
 

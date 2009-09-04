@@ -36,7 +36,6 @@ rule boost-library-darwin ( curlib : dll-lib : stem-name : libver : gcc-version 
     lib $(curlib) : : <file>$(filename-dbg-so-full:J) <variant>debug <target-os>darwin ;
     local filename-dbg-so = $(prefix-darwin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".dylib" ;
     lib $(dll-lib) : $(curlib) : <file>$(filename-dbg-so:J) <variant>debug <target-os>darwin ;
-
 }
 
 rule boost-libraries ( libs * )
