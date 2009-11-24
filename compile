@@ -2,11 +2,12 @@
 
 if test -e /proc/ 
 then {
-    ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc tools --without-mpi --prefix=../boost
-    ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc debug release install --without-mpi --prefix=../boost
+#    ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc tools --without-mpi --prefix=../boost
+    ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc debug link=shared install --without-mpi --prefix=../boost \
+    && ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc release link=shared install --without-mpi --prefix=../boost
 }
 else {
-    ./bjam toolset=darwin tools --without-mpi --prefix=../boost
+#    ./bjam toolset=darwin tools --without-mpi --prefix=../boost
     ./bjam toolset=darwin debug release install --without-mpi --prefix=../boost
 }
 fi
