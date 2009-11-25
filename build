@@ -33,20 +33,7 @@ then {
     echo Create build tools
     cd tools/jam
     ./build_dist.sh
-    if test -e stage/bin.linuxx86_64/bjam
-    then {
-        cp -v stage/bin.linuxx86_64/bjam ../..
-    } else {
-        if test -e stage/bin.macosxx86/bjam
-	then {
-	    cp -v stage/bin.macosxx86/bjam ../..
-	}
-        else {
-            cp -v stage/bin.linuxx86/bjam ../..
-        }
-        fi
-    }
-    fi
+    cp -v `ls -d stage/bin.*`/bjam ../..
     cd ../..
 }
 fi
