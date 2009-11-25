@@ -1,6 +1,6 @@
 #! /bin/bash
 
-if test -e /proc/ 
+if test -e /proc/
 then {
 #    ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc tools --without-mpi --prefix=../boost
     ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc debug link=shared install --without-mpi --prefix=../boost \
