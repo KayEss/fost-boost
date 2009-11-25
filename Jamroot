@@ -64,6 +64,7 @@ rule boost-libraries ( libs * )
         lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug <target-os>windows ;
 
         boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.1" ;
+        boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.1" ;
 
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.3" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.4" ;
