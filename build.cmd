@@ -1,6 +1,5 @@
 @echo off
 svn up .
-call "c:\Program Files\Microsoft Visual Studio 8\VC\bin\vcvars32.bat"
 IF "%1"=="" (
     SET MAJOR=38
 ) ELSE (
