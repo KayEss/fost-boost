@@ -14,3 +14,5 @@ cmd /A /C echo BOOST_HEADERS = "../Boost/boost/include/boost-1_$(BOOST_VERSION_M
 cmd /A /C echo BUILD_DIRECTORY = "../build.tmp/1_%1_%2" ;>> ..\boost-version.jam
 
 cmd /A /C echo set BUILD_DIRECTORY=../build.tmp/1_%1_%2>> ..\boost-version.cmd
+
+copy Jamroot.ownbuild-1_39_0-or-earlier Jamroot
