@@ -25,3 +25,7 @@ then {
 }
 fi
 chmod +x ../python.opts.sh
+
+JAMROOT=Jamroot.ownbuild-1_39_0-or-earlier
+echo Using $JAMROOT
+cp $JAMROOT Jamroot
