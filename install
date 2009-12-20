@@ -6,6 +6,11 @@ then {
     echo Making ../boost-version.jam
     echo BUILD_DIRECTORY = \"../build.tmp/karmic\" \;>../boost-version.jam
 
+    echo Creating local bjam
+    echo \#\!/bin/bash>../bjam
+    echo `which bjam` \$0>>../bjam
+    chmod +x ../bjam
+
     JAMROOT=Jamroot.karmic
 }
 else {
@@ -39,3 +44,6 @@ else {
 fi
 echo Using $JAMROOT
 cp $JAMROOT Jamroot
+
+echo Installing colorbb
+colorbb/use_colorbb
