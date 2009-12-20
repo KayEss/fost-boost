@@ -1,31 +1,41 @@
 #! /bin/bash
 cd `dirname $0`
 
-cp -v 1_$1\_$2/bjam ..
-
-echo Making ../boost-build.jam
-rm -f ../boost-build.jam
-echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
-echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
-echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
-echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
-
-echo Making ../boost-version.jam
-rm -f ../boost-version.jam
-echo BOOST_VERSION_MAJOR = \"$1\" \;>> ../boost-version.jam
-echo BOOST_VERSION_MINOR = \"$2\" \;>> ../boost-version.jam
-echo BOOST_HEADERS = \"../Boost/boost/include/boost-1_\$\(BOOST_VERSION_MAJOR\)/\" \;>> ../boost-version.jam
-echo BUILD_DIRECTORY = \"../build.tmp/1_$1_$2\" \;>> ../boost-version.jam
-
-if test $1 -lt 38
+if [[ "$1" == "karmic" ]]
 then {
-    echo echo --preserve-test-targets > ../python.opts.sh
-} else {
-    echo echo preserve-test-targets=on > ../python.opts.sh
+    echo Making ../boost-version.jam
+    echo BUILD_DIRECTORY = \"../build.tmp/karmic\" \;>../boost-version.jam
+
+    JAMROOT=Jamroot.karmic
+}
+else {
+    cp -v 1_$1\_$2/bjam ..
+
+    echo Making ../boost-build.jam
+    rm -f ../boost-build.jam
+    echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
+    echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
+    echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
+    echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
+
+    echo Making ../boost-version.jam
+    rm -f ../boost-version.jam
+    echo BOOST_VERSION_MAJOR = \"$1\" \;>> ../boost-version.jam
+    echo BOOST_VERSION_MINOR = \"$2\" \;>> ../boost-version.jam
+    echo BOOST_HEADERS = \"../Boost/boost/include/boost-1_\$\(BOOST_VERSION_MAJOR\)/\" \;>> ../boost-version.jam
+    echo BUILD_DIRECTORY = \"../build.tmp/1_$1_$2\" \;>> ../boost-version.jam
+
+    if test $1 -lt 38
+    then {
+        echo echo --preserve-test-targets > ../python.opts.sh
+    } else {
+        echo echo preserve-test-targets=on > ../python.opts.sh
+    }
+    fi
+    chmod +x ../python.opts.sh
+
+    JAMROOT=Jamroot.ownbuild-1_39_0-or-earlier
 }
 fi
-chmod +x ../python.opts.sh
-
-JAMROOT=Jamroot.ownbuild-1_39_0-or-earlier
 echo Using $JAMROOT
 cp $JAMROOT Jamroot
