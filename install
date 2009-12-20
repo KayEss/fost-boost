@@ -13,6 +13,10 @@ then {
     echo `which bjam` \$\*>>../bjam
     chmod +x ../bjam
 
+    echo Creating target preservation script
+    echo echo --preserve-test-targets > ../python.opts.sh
+    chmod +x ../python.opts.sh
+
     JAMROOT=Jamroot.karmic
 }
 else {
@@ -34,21 +38,21 @@ else {
     echo BOOST_HEADERS = \"../Boost/boost/include/boost-1_\$\(BOOST_VERSION_MAJOR\)/\" \;>> ../boost-version.jam
     echo BUILD_DIRECTORY = \"../build.tmp/1_$BOOST_MAJOR_$2\" \;>> ../boost-version.jam
 
+    echo Creating target preservation script
+    if test $BOOST_MAJOR -lt 38
+    then {
+        echo echo --preserve-test-targets > ../python.opts.sh
+    } else {
+        echo echo preserve-test-targets=on > ../python.opts.sh
+    }
+    fi
+    chmod +x ../python.opts.sh
+
     JAMROOT=Jamroot.ownbuild-1_39_0-or-earlier
 }
 fi
 echo Using $JAMROOT
 cp $JAMROOT Jamroot
-
-echo Creating target preservation script
-if test $BOOST_MAJOR -lt 38
-then {
-    echo echo --preserve-test-targets > ../python.opts.sh
-} else {
-    echo echo preserve-test-targets=on > ../python.opts.sh
-}
-fi
-chmod +x ../python.opts.sh
 
 echo Installing colorbb
 colorbb/use_colorbb
