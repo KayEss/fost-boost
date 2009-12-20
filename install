@@ -8,7 +8,7 @@ then {
 
     echo Creating local bjam
     echo \#\!/bin/bash>../bjam
-    echo `which bjam` \$0>>../bjam
+    echo `which bjam` \$\*>>../bjam
     chmod +x ../bjam
 
     JAMROOT=Jamroot.karmic
