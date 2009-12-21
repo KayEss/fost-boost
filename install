@@ -20,26 +20,24 @@ then {
     JAMROOT=Jamroot.karmic
 }
 else {
-    BOOST_MAJOR=$1
-
-    cp -v 1_$BOOST_MAJOR\_$2/bjam ..
+    cp -v 1_$1\_$2/bjam ..
 
     echo Making boost-build.jam
     rm -f ../boost-build.jam
     echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
     echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
-    echo BOOST_BUILD ?= Boost/1_$BOOST_MAJOR_$2/tools/build/v2 \;>>../boost-build.jam
+    echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
     echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
 
     echo Making boost-version.jam
     rm -f ../boost-version.jam
-    echo BOOST_VERSION_MAJOR = \"$BOOST_MAJOR\" \;>> ../boost-version.jam
+    echo BOOST_VERSION_MAJOR = \"$1\" \;>> ../boost-version.jam
     echo BOOST_VERSION_MINOR = \"$2\" \;>> ../boost-version.jam
     echo BOOST_HEADERS = \"../Boost/boost/include/boost-1_\$\(BOOST_VERSION_MAJOR\)/\" \;>> ../boost-version.jam
-    echo BUILD_DIRECTORY = \"../build.tmp/1_$BOOST_MAJOR_$2\" \;>> ../boost-version.jam
+    echo BUILD_DIRECTORY = \"../build.tmp/1_$1_$2\" \;>> ../boost-version.jam
 
     echo Creating target preservation script
-    if test $BOOST_MAJOR -lt 38
+    if test $1 -lt 38
     then {
         echo echo --preserve-test-targets > ../python.opts.sh
     } else {
