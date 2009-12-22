@@ -40,7 +40,7 @@ rule boost-library-darwin ( curlib : dll-lib : stem-name : libver : gcc-version 
 
 rule boost-library-windows ( curlib : dll-lib : stem-name : libver : msvc-version )
 {
-    local prefix-win = "boost/lib/boost_" ;
+    local prefix-win = "$(BOOST_LIBS)/boost_" ;
     local msvc = "-vc" $(libver) "-" ;
     local version = "1_$(BOOST_VERSION_MAJOR)" ;
 
@@ -78,6 +78,7 @@ rule boost-libraries ( libs * )
 
         boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "80" : "8.0" ;
         boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "90" : "9.0" ;
+        boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "90" : "9.0express" ;
     }
 
     install ../dist/bin : $(dll-targets) : <install-dependencies>on ;

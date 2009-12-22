@@ -11,15 +11,21 @@ IF "%2"=="" (
     SET MINOR=%2
 )
 SET VERSION=1_%MAJOR%_%MINOR%
-IF NOT EXIST %VERSION% (
-    svn co http://svn.boost.org/svn/boost/tags/release/Boost_%VERSION% %VERSION%
+IF EXIST "%3\%VERSION%" (
+    call install.cmd %1 %2 %3
+) ELSE (
+    IF NOT EXIST %VERSION% (
+        svn co http://svn.boost.org/svn/boost/tags/release/Boost_%VERSION% %VERSION%
+    ) ELSE (
+	    svn up %VERSION%
+    )
+    IF NOT EXIST %VERSION%\bjam.exe (
+        cd %VERSION%\tools\jam
+        call build_dist.bat
+        cd
+        copy bin.ntx86\bjam.exe ..\..\..
+        cd ..\..\..\..
+    )
+    call compile.cmd %VERSION%
+    call install.cmd %MAJOR% %MINOR% .
 )
-IF NOT EXIST %VERSION%\bjam.exe (
-    cd %VERSION%\tools\jam
-    call build_dist.bat
-    cd
-    copy bin.ntx86\bjam.exe ..\..\..
-    cd ..\..\..\..
-)
-call compile.cmd %VERSION%
-call install.cmd %MAJOR% %MINOR%
