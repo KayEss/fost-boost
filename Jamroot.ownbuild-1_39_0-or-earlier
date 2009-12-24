@@ -46,15 +46,19 @@ rule boost-library-windows ( curlib : dll-lib : stem-name : libver : msvc-versio
 
     local filename-rel-lib = $(prefix-win) $(name) $(msvc:J) "mt-" $(version) ".lib" ;
     lib $(curlib) : : <file>$(filename-rel-lib:J) <variant>release  <target-os>windows <toolset-msvc:version>$(msvc-version) ;
+    lib $(curlib) : : <file>$(filename-rel-lib:J) <variant>release-mfc  <target-os>windows <toolset-msvc:version>$(msvc-version) ;
 
     local filename-rel-dll = $(prefix-win) $(name) $(msvc:J) "mt-" $(version) ".dll" ;
     lib $(dll-target:J) : $(curlib) : <file>$(filename-rel-dll:J) <variant>release  <target-os>windows <toolset-msvc:version>$(msvc-version) ;
+    lib $(dll-target:J) : $(curlib) : <file>$(filename-rel-dll:J) <variant>release-mfc  <target-os>windows <toolset-msvc:version>$(msvc-version) ;
 
     local filename-dbg-lib = $(prefix-win) $(name) $(msvc:J) "mt-" "gd-" $(version) ".lib" ;
     lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug  <target-os>windows <toolset-msvc:version>$(msvc-version) ;
+    lib $(curlib) : : <file>$(filename-dbg-lib:J) <variant>debug-mfc  <target-os>windows <toolset-msvc:version>$(msvc-version) ;
 
     local filename-dbg-dll = $(prefix-win) $(name) $(msvc:J) "mt-" "gd-" $(version) ".dll" ;
     lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug <target-os>windows <toolset-msvc:version>$(msvc-version) ;
+    lib $(dll-target:J) : $(curlib) : <file>$(filename-dbg-dll:J) <variant>debug-mfc <target-os>windows <toolset-msvc:version>$(msvc-version) ;
 }
 
 rule boost-libraries ( libs * )
