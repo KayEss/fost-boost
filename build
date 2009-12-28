@@ -38,6 +38,6 @@ then {
 }
 fi
 
-../compile $VERSION
+../compile $MAJOR $MINOR
 cd ..
 ./install $MAJOR $MINOR

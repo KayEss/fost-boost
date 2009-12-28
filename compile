@@ -1,13 +1,20 @@
 #! /bin/bash
 
-if test -e /proc/
+if test $1 -lt 40
 then {
-#    ./bjam -j`grep -c ^processor /proc/cpuinfo` --toolset=gcc tools --without-mpi --prefix=../boost
-    ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc debug link=shared install --without-mpi --prefix=`pwd`/../boost \
-    && ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc release link=shared install --without-mpi --prefix=`pwd`/../boost
+    OPTIONS="install --without-mpi --prefix=`pwd`/../boost"
 }
 else {
-#    ./bjam toolset=darwin tools --without-mpi --prefix=../boost
-    ./bjam toolset=darwin debug release install --without-mpi --prefix=`pwd`/../boost
+    OPTIONS="install --layout=versioned --without-mpi --prefix=`pwd`/../boost"
+}
+fi
+
+if test -e /proc/
+then {
+    ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc debug link=shared $OPTIONS \
+    && ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc release link=shared $OPTIONS
+}
+else {
+    ./bjam -j`sysctl -n hw.ncpu` toolset=darwin debug release $OPTIONS
 }
 fi
