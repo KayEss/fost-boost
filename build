@@ -39,5 +39,3 @@ then {
 fi
 
 ../compile $MAJOR $MINOR
-cd ..
-./install $MAJOR $MINOR
