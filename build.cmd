@@ -10,10 +10,15 @@ IF "%2"=="" (
 ) ELSE (
     SET MINOR=%2
 )
-SET VERSION=1_%MAJOR%_%MINOR%
-IF EXIST "%3\%VERSION%" (
-    call install.cmd %1 %2 %3
+
+IF "%3"=="" (
+    SET LOCATION=.
 ) ELSE (
+    SET LOCATION=%3
+)
+
+SET VERSION=1_%MAJOR%_%MINOR%
+IF NOT EXIST "%LOCATION%\%VERSION%" (
     IF NOT EXIST %VERSION% (
         svn co http://svn.boost.org/svn/boost/tags/release/Boost_%VERSION% %VERSION%
     ) ELSE (
@@ -27,5 +32,7 @@ IF EXIST "%3\%VERSION%" (
         cd ..\..\..\..
     )
     call compile.cmd %VERSION%
-    call install.cmd %MAJOR% %MINOR% .
 )
+
+echo To use this version run:
+echo install.cmd %MAJOR% %MINOR% %LOCATION%
