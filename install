@@ -5,6 +5,9 @@ if [[ "$1" == "karmic" ]]
 then {
     BOOST_MAJOR=38
 
+    echo Removing boost-build.jam
+    rm -f ../boost-build.jam
+
     echo Making boost-version.jam
     echo BUILD_DIRECTORY = \"../build.tmp/karmic\" \;>../boost-version.jam
 
