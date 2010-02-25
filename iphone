@@ -1,0 +1,25 @@
+#! /bin/bash
+cd `dirname $0`
+
+export VERSION=1_42_0
+echo Using Boost_$VERSION
+
+if test ! -e $VERSION
+then {
+    svn co http://svn.boost.org/svn/boost/tags/release/Boost_$VERSION $VERSION
+}
+fi
+
+cd $VERSION
+
+if test ! -e bjam
+then {
+    echo Create build tools
+    cd tools/jam
+    ./build_dist.sh
+    cp -v `ls -d stage/bin.*`/bjam ../..
+    cd ../..
+}
+fi
+
+./bjam -j2 toolset=darwin target-os=iphone macosx-version=iphone-2.0 debug release link=shared install --layout=versioned --without-mpi --prefix=../boost-iphone
