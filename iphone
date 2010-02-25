@@ -22,4 +22,4 @@ then {
 }
 fi
 
-./bjam -j2 toolset=darwin target-os=iphone macosx-version=iphone-2.0 debug release link=shared install --layout=versioned --without-mpi --prefix=../boost-iphone
+./bjam -j2 toolset=darwin target-os=iphone macosx-version=iphone-2.0 debug release link=shared install --layout=versioned --without-mpi --prefix=`pwd`/../boost-iphone
