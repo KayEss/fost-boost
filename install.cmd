@@ -1,4 +1,6 @@
 @echo off
+pushd %0\..
+
 copy "%3\1_%1_%2\bjam.exe" ..
 
 del ..\boost-build.jam
@@ -19,3 +21,5 @@ cmd /A /C echo set BOOST_VERSION_MAJOR=%1 >> ..\boost-version.cmd
 cmd /A /C echo set BOOST_VERSION_MINOR=%2 >> ..\boost-version.cmd
 
 copy Jamroot.ownbuild-versioned-layout Jamroot
+
+popd
