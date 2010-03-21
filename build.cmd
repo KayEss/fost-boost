@@ -1,7 +1,9 @@
 @echo off
+pushd %0\..
 svn up .
+
 IF "%1"=="" (
-    SET MAJOR=38
+    SET MAJOR=41
 ) ELSE (
     SET MAJOR=%1
 )
@@ -29,7 +31,14 @@ IF NOT EXIST %VERSION%\bjam.exe (
     copy bin.ntx86\bjam.exe ..\..\..
     cd ..\..\..\..
 )
+
 call compile.cmd %VERSION%
 
-echo To use this version run:
-echo install.cmd %MAJOR% %MINOR% %LOCATION%
+IF "%1"=="" (
+    call install.cmd %MAJOR% %MINOR% %LOCATION%
+) ELSE (
+    echo To use this version run:
+    echo cd %0\..
+    echo install.cmd %MAJOR% %MINOR% %LOCATION%
+)
+popd
