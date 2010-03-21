@@ -39,3 +39,10 @@ then {
 fi
 
 ../compile $MAJOR $MINOR
+if test -z $1
+then {
+    cd ..
+    ./install $MAJOR $MINOR
+}
+fi
+
