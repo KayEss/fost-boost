@@ -3,7 +3,7 @@ cd `dirname $0`
 
 if test -z $1
 then {
-    export MAJOR=39
+    export MAJOR=41
 } else {
     export MAJOR=$1
 }
