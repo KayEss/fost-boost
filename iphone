@@ -10,9 +10,9 @@ then {
 }
 fi
 
-#cp -v ./user-config.jam.iphone $VERSION/user-config.jam
-cp -v /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/usr/include/bzlib.h $VERSION/
-cp -v /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/usr/include/crt_externs.h $VERSION/
+cp -v ./user-config.jam.iphone ~/user-config.jam
+cp -vn /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/usr/include/bzlib.h $VERSION/
+cp -vn /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/usr/include/crt_externs.h $VERSION/
 cp -v darwin.jam.iphone $VERSION/tools/build/v2/tools/darwin.jam
 cd $VERSION
 
@@ -27,5 +27,5 @@ then {
 fi
 
 
-./bjam --prefix=`pwd`/../boost-iphone toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi --without-wave -layout=versioned pch=off \
-  && ./bjam --prefix=`pwd`/../boost-iphonesim toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi --without-wave -layout=versioned
+./bjam --prefix=`pwd`/../boost-iphone toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi -layout=versioned pch=off \
+  && ./bjam --prefix=`pwd`/../boost-iphonesim toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi -layout=versioned

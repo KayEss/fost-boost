@@ -1,11 +1,11 @@
 using darwin : 4.2.1~iphone
-   : /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -mthumb -fvisibility=hidden -fvisibility-inlines-hidden
+   : /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -fvisibility=hidden -fvisibility-inlines-hidden
    : <stripper>
    : <architecture>arm <target-os>iphone <macosx-version>iphone-3.2
    ;
  
 using darwin : 4.2.1~iphonesim
-   : /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -arch i386 -fvisibility=hidden -fvisibility-inlines-hidden
+   : /Developer/Platforms/iPhoneSimulator.platform/Developer/usr/bin/gcc-4.2 -fvisibility=hidden -fvisibility-inlines-hidden
    : <stripper>
    : <architecture>x86 <target-os>iphone <macosx-version>iphonesim-3.2
    ;
