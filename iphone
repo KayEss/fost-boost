@@ -14,6 +14,7 @@ cp -vn ./user-config.jam.iphone ~/user-config.jam
 cp -vn /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/usr/include/bzlib.h $VERSION/
 cp -vn /Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator3.0.sdk/usr/include/crt_externs.h $VERSION/
 cp -v darwin.jam.iphone $VERSION/tools/build/v2/tools/darwin.jam
+cp -v Jamroot.iphone Jamroot
 cd $VERSION
 
 if test ! -e bjam
