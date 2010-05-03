@@ -1,15 +1,22 @@
 #! /bin/bash
 cd `dirname $0`
 
-if [[ "$1" == "karmic" ]]
+if [[ "$1" == "karmic" || "$1" == "lucid" ]]
 then {
-    BOOST_MAJOR=38
+    if [ "$1" == "lucid" ]
+    then {
+        BOOST_MAJOR=40
+    }
+    else {
+        BOOST_MAJOR=38
+    }
+    fi
 
     echo Removing boost-build.jam
     rm -f ../boost-build.jam
 
     echo Making boost-version.jam
-    echo BUILD_DIRECTORY = \"../build.tmp/karmic\" \;>../boost-version.jam
+    echo BUILD_DIRECTORY = \"../build.tmp/$1\" \;>../boost-version.jam
 
     echo Creating local bjam
     echo \#\!/bin/bash>../bjam
@@ -20,7 +27,7 @@ then {
     echo echo --preserve-test-targets > ../python.opts.sh
     chmod +x ../python.opts.sh
 
-    JAMROOT=Jamroot.karmic
+    JAMROOT=Jamroot.$1
 }
 else {
     cp -v 1_$1\_$2/bjam ..
