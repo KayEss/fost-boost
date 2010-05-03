@@ -10,6 +10,7 @@ then {
 }
 fi
 
+cp -v ./user-config.jam.iphone $VERSION/user-config.jam
 cd $VERSION
 
 if test ! -e bjam
@@ -22,4 +23,7 @@ then {
 }
 fi
 
-./bjam -j2 toolset=darwin target-os=iphone macosx-version=iphone-2.0 debug release link=shared install --layout=versioned --without-mpi --prefix=`pwd`/../boost-iphone
+
+#./bjam -j2 toolset=darwin target-os=iphone macosx-version=iphone-3.2 debug release link=shared install --layout=versioned --without-mpi --prefix=`pwd`/../boost-iphone
+./bjam --prefix=`pwd`/../boost-iphone toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi -layout=versioned
+./bjam --prefix=`pwd`/../boost-iphonesim toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi -layout=versioned
