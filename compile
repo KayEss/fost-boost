@@ -15,6 +15,6 @@ then {
     && ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc release link=shared $OPTIONS
 }
 else {
-    ./bjam -j`sysctl -n hw.ncpu` toolset=darwin debug release $OPTIONS
+    ./bjam -j`sysctl -n hw.ncpu` toolset=darwin architecture=x86 address-model=32_64 debug release $OPTIONS
 }
 fi
