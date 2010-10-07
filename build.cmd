@@ -25,7 +25,9 @@ IF NOT EXIST %VERSION% (
     svn co http://svn.boost.org/svn/boost/tags/release/Boost_%VERSION% %VERSION%
 )
 IF NOT EXIST %VERSION%\bjam.exe (
-    cd %VERSION%\tools\jam
+    cd %VERSION%
+    svn up
+    cd tools\jam
     call build_dist.bat
     cd
     copy bin.ntx86\bjam.exe ..\..\..
