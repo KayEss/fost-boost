@@ -1,0 +1,33 @@
+#! /bin/bash
+cd `dirname $0`
+
+export VERSION=1_44_0
+export IPHONE=4.2
+
+echo Using Boost_$VERSION and iphone-$IPHONE
+
+if test ! -e $VERSION
+then {
+    svn co http://svn.boost.org/svn/boost/tags/release/Boost_$VERSION $VERSION
+}
+fi
+
+cp -vn ./user-config.jam.${VERSION}.iphone ~/user-config.jam
+cp -v Jamroot.iphone Jamroot
+cd $VERSION
+
+if test ! -e bjam
+then {
+    echo Create build tools
+    cd tools/jam
+    ./build_dist.sh
+    cp -v `ls -d stage/bin.*`/bjam ../..
+    cd ../..
+}
+fi
+
+
+./bjam --prefix=`pwd`/../boost-iphone-debug debug toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-$IPHONE define=_LITTLE_ENDIAN link=static install --without-mpi --without-python pch=off \
+  && ./bjam --prefix=`pwd`/../boost-iphone-release release toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-$IPHONE define=_LITTLE_ENDIAN link=static install --without-mpi --without-python pch=off \
+  && ./bjam --prefix=`pwd`/../boost-iphonesim-debug debug toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-$IPHONE link=static install --without-mpi --without-python \
+  && ./bjam --prefix=`pwd`/../boost-iphonesim-release release toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-$IPHONE link=static install --without-mpi --without-python
