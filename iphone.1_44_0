@@ -12,7 +12,7 @@ then {
 }
 fi
 
-cp -vn ./user-config.jam.${VERSION}.iphone ~/user-config.jam
+cp -vn ./user-config.jam.iphone ~/user-config.jam
 cp -v Jamroot.iphone Jamroot
 cd $VERSION
 
