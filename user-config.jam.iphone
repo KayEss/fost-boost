@@ -1,5 +1,5 @@
 using darwin : 4.2.1~iphone
-   : /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -mthumb -fvisibility=hidden -fvisibility-inlines-hidden
+   : /Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/gcc-4.2 -arch armv7 -fvisibility=hidden -fvisibility-inlines-hidden
    : <striper>
    : <architecture>arm <target-os>iphone
    ;
