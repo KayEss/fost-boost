@@ -1,7 +1,8 @@
-#! /bin/bash
+qq#! /bin/bash
 cd `dirname $0`
 
 export VERSION=1_42_0
+export IPHONE=3.2
 echo Using Boost_$VERSION
 
 if test ! -e $VERSION
@@ -28,7 +29,7 @@ then {
 fi
 
 
-./bjam --prefix=`pwd`/../boost-iphone-debug debug toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi --without-python pch=off \
-  && ./bjam --prefix=`pwd`/../boost-iphone-release release toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi --without-python pch=off \
-  && ./bjam --prefix=`pwd`/../boost-iphonesim-debug debug toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi --without-python \
-  && ./bjam --prefix=`pwd`/../boost-iphonesim-release release toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi --without-python
+./bjam --prefix=`pwd`/../boost-iphone${IPHONE}-debug debug toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi --without-python pch=off \
+  && ./bjam --prefix=`pwd`/../boost-iphone${IPHONE}-release release toolset=darwin architecture=arm target-os=iphone macosx-version=iphone-3.2 define=_LITTLE_ENDIAN link=static install --without-mpi --without-python pch=off \
+  && ./bjam --prefix=`pwd`/../boost-iphonesim${IPHONE}-debug debug toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi --without-python \
+  && ./bjam --prefix=`pwd`/../boost-iphonesim${IPHONE}-release release toolset=darwin architecture=x86 target-os=iphone macosx-version=iphonesim-3.2 link=static install --without-mpi --without-python
