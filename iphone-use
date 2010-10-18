@@ -1,7 +1,11 @@
 #!/bin/bash
 cd `dirname $0`
 
-ln -sv boost1_44_0-iphone4.2-debug boost-iphone-debug
-ln -sv boost1_44_0-iphone4.2-release boost-iphone-release
-ln -sv boost1_44_0-iphonesim4.2-debug boost-iphonesim-debug
-ln -sv boost1_44_0-iphonesim4.2-release boost-iphonesim-release
+BOOST_VERSION=${1:-1_42_0}
+IPHONE_VERSION=${2:-3.2}
+
+rm boost-iphone-debug boost-iphone-release boost-iphonesim-debug boost-iphonesim-release
+ln -sv boost${BOOST_VERSION}-iphone${IPHONE_VERSION}-debug boost-iphone-debug
+ln -sv boost${BOOST_VERSION}-iphone${IPHONE_VERSION}-release boost-iphone-release
+ln -sv boost${BOOST_VERSION}-iphonesim${IPHONE_VERSION}-debug boost-iphonesim-debug
+ln -sv boost${BOOST_VERSION}-iphonesim${IPHONE_VERSION}-release boost-iphonesim-release
