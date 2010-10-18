@@ -1,0 +1,7 @@
+#!/bin/bash
+cd `dirname $0`
+
+ln -sv boost1_44_0-iphone4.2-debug boost-iphone-debug
+ln -sv boost1_44_0-iphone4.2-release boost-iphone-release
+ln -sv boost1_44_0-iphonesim4.2-debug boost-iphonesim-debug
+ln -sv boost1_44_0-iphonesim4.2-release boost-iphonesim-release
