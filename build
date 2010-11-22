@@ -37,10 +37,17 @@ cd $VERSION
 if test ! -e bjam
 then {
     echo Create build tools
-    cd tools/jam
-    ./build_dist.sh
-    cp -v `ls -d stage/bin.*`/bjam ../..
-    cd ../..
+    if test ! -e bootstrap.sh
+    then {
+        cd tools/jam
+        ./build_dist.sh
+        cp -v `ls -d stage/bin.*`/bjam ../..
+        cd ../..
+    }
+    else {
+        ./bootstrap.sh
+    }
+    fi
 }
 fi
 
