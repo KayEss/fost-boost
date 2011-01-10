@@ -24,6 +24,9 @@ if test ! -e $VERSION
 then {
     svn co http://svn.boost.org/svn/boost/tags/release/Boost_$VERSION $VERSION
 }
+else {
+    svn up $VERSION
+}
 fi
 
 if test -e gcc.jam.$VERSION.darwin
