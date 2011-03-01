@@ -1,4 +1,4 @@
-qq#! /bin/bash
+#! /bin/bash
 cd `dirname $0`
 
 export VERSION=1_42_0
