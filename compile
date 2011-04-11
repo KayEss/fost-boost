@@ -11,10 +11,12 @@ fi
 
 if test -e /proc/
 then {
-    ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc debug link=shared $OPTIONS \
-    && ./bjam -j`grep -c ^processor /proc/cpuinfo` toolset=gcc release link=shared $OPTIONS
+    export CPUCOUNT=`grep -c ^processor /proc/cpuinfo`
+    ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS \
+    && ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS
 }
 else {
-    ./bjam -j`sysctl -n hw.ncpu` toolset=darwin architecture=x86 address-model=32_64 pch=off debug release $OPTIONS
+    export CPUCOUNT=`sysctl -n hw.ncpu`
+    ./bjam -j$CPUCOUNT toolset=darwin architecture=x86 address-model=32_64 pch=off debug release $OPTIONS
 }
 fi
