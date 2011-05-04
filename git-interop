@@ -1,0 +1,6 @@
+#!/bin/bash
+
+git svn init https://svn.felspar.com/external/Boost fost-boost
+cd fost-boost
+git svn fetch --ignore-paths="^install"
+git remote add github git@github.com:Felspar/fost-boost.git
