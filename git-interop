@@ -4,4 +4,4 @@ git svn init https://svn.felspar.com/external/Boost fost-boost
 cd fost-boost
 git svn fetch --ignore-paths="^install"
 git flow init -d
-#git remote add github git@github.com:Felspar/fost-boost.git
+git remote add github git@github.com:Felspar/fost-boost.git
