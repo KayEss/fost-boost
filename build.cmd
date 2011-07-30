@@ -27,11 +27,15 @@ IF NOT EXIST %VERSION% (
 IF NOT EXIST %VERSION%\bjam.exe (
     cd %VERSION%
     svn up
-    cd tools\jam
-    call build_dist.bat
-    cd
-    copy bin.ntx86\bjam.exe ..\..\..
-    cd ..\..\..\..
+    IF EXIST bootstrap.bat (
+        call bootstrap.bat
+    ) ELSE (
+        cd tools\jam
+        call build_dist.bat
+        copy bin.ntx86\bjam.exe ..\..\..
+        cd ..\..\..
+    )
+    cd ..
 )
 
 call compile.cmd %VERSION%
