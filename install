@@ -25,6 +25,7 @@ then {
 
     echo Making boost-version.jam
     echo BUILD_DIRECTORY = \"../build.tmp/$1\" \;>../boost-version.jam
+    echo BOOST_VERSION_MAJOR = \"$BOOST_MAJOR\" \;>> ../boost-version.jam
 
     echo Creating local bjam
     echo \#\!/bin/bash>../bjam
