@@ -2,24 +2,6 @@
 path-constant TOP : . ;
 include $(TOP)/../boost-version.jam ;
 
-rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
-{
-    local prefix-lin = "boost/lib/libboost_" ;
-    local gcc = "-gcc" ;
-    local version-short = "1_$(BOOST_VERSION_MAJOR)" ;
-    local version-full = "1.$(BOOST_VERSION_MAJOR).0" ;
-
-    local filename-rel-so-full = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".so." $(version-full) ;
-    lib $(curlib) : : <file>$(filename-rel-so-full:J) <variant>release <target-os>linux <toolset-gcc:version>$(gcc-version) ;
-    local filename-rel-so = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".so" ;
-    lib $(dll-lib) : $(curlib) : <file>$(filename-rel-so:J) <variant>release <target-os>linux <toolset-gcc:version>$(gcc-version) ;
-
-    local filename-dbg-so-full = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".so." $(version-full) ;
-    lib $(curlib) : : <file>$(filename-dbg-so-full:J) <variant>debug <target-os>linux <toolset-gcc:version>$(gcc-version) ;
-    local filename-dbg-so = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".so" ;
-    lib $(dll-lib) : $(curlib) : <file>$(filename-dbg-so:J) <variant>debug <target-os>linux <toolset-gcc:version>$(gcc-version) ;
-}
-
 rule boost-library-darwin ( curlib : dll-lib : stem-name : libver : gcc-version )
 {
     local prefix-darwin = "boost/lib/libboost_" ;
@@ -73,6 +55,24 @@ rule boost-library-darwin ( curlib : dll-lib : stem-name : libver : gcc-version 
         <variant>debug <target-os>iphone
         <toolset-darwin:version>$(gcc-version)
     ;
+}
+
+rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
+{
+    local prefix-lin = "boost/lib/libboost_" ;
+    local gcc = "-gcc" ;
+    local version-short = "1_$(BOOST_VERSION_MAJOR)" ;
+    local version-full = "1.$(BOOST_VERSION_MAJOR).0" ;
+
+    local filename-rel-so-full = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".so." $(version-full) ;
+    lib $(curlib) : : <file>$(filename-rel-so-full:J) <variant>release <target-os>linux <toolset-gcc:version>$(gcc-version) ;
+    local filename-rel-so = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".so" ;
+    lib $(dll-lib) : $(curlib) : <file>$(filename-rel-so:J) <variant>release <target-os>linux <toolset-gcc:version>$(gcc-version) ;
+
+    local filename-dbg-so-full = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".so." $(version-full) ;
+    lib $(curlib) : : <file>$(filename-dbg-so-full:J) <variant>debug <target-os>linux <toolset-gcc:version>$(gcc-version) ;
+    local filename-dbg-so = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" "d-" $(version-short) ".so" ;
+    lib $(dll-lib) : $(curlib) : <file>$(filename-dbg-so:J) <variant>debug <target-os>linux <toolset-gcc:version>$(gcc-version) ;
 }
 
 rule boost-library-windows ( curlib : dll-lib : stem-name : libver : msvc-version )
