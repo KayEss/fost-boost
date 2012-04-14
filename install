@@ -1,9 +1,9 @@
 #! /bin/bash
 cd `dirname $0`
 
-if [[ "$1" == "karmic" || "$1" == "lucid" || "$1" == "maverick" || "$1" == "natty" || "$1" == "oneiric" ]]
+if [[ "$1" == "lucid" || "$1" == "maverick" || "$1" == "natty" || "$1" == "oneiric" || "$1" == "precise" ]]
 then {
-    if [[ "$1" == "oneiric" ]]
+    if [[ "$1" == "oneiric" || "$1" == "precise" ]]
     then {
          BOOST_MAJOR=46
     }
@@ -14,9 +14,6 @@ then {
     elif [ "$1" == "lucid" ]
     then {
         BOOST_MAJOR=40
-    }
-    else {
-        BOOST_MAJOR=38
     }
     fi
 
