@@ -27,10 +27,12 @@
 # Some useful color codes, see end of file for more.
 #
 $col_ltgray =       "\033[37m";
+$col_blue =         "\033[34m";
 $col_purple =       "\033[35m";
 $col_green =        "\033[32m";
 $col_cyan =         "\033[36m";
 $col_brown =        "\033[33m";
+$col_red =          "\033[31m";
 $col_norm =         "\033[00m";
 $col_background =   "\033[07m";
 $col_brighten =     "\033[01m";
@@ -44,12 +46,12 @@ $col_bjam =         $col_ltgray;
 $col_compile =      $col_purple . $col_brighten;
 $col_link =         $col_purple . $col_brighten;
 $col_test =         $col_purple . $col_brighten;
-$col_filename =     $col_brown;
-$col_linenum =      $col_cyan;
-$col_trace =        $col_brown;
+$col_filename =     $col_blue;
+$col_linenum =      $col_cyan . $col_brighten;
+$col_trace =        $col_blue;
 $col_warning =      $col_green;
 $tag_error =        "";
-$col_error =        $tag_error . $col_brown . $col_brighten;
+$col_error =        $tag_error . $col_red . $col_brighten;
 $error_highlight =  $col_brighten;
 
 # Get size of terminal
