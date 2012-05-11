@@ -30,6 +30,7 @@ $col_ltgray =       "\033[37m";
 $col_blue =         "\033[34m";
 $col_purple =       "\033[35m";
 $col_green =        "\033[32m";
+$col_red =          "\033[31m";
 $col_cyan =         "\033[36m";
 $col_brown =        "\033[33m";
 $col_red =          "\033[31m";
