@@ -33,7 +33,6 @@ $col_green =        "\033[32m";
 $col_red =          "\033[31m";
 $col_cyan =         "\033[36m";
 $col_brown =        "\033[33m";
-$col_red =          "\033[31m";
 $col_norm =         "\033[00m";
 $col_background =   "\033[07m";
 $col_brighten =     "\033[01m";
