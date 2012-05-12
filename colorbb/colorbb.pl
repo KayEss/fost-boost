@@ -26,7 +26,7 @@
 #
 # Some useful color codes, see end of file for more.
 #
-$col_ltgray =       "\033[37m";
+$col_ltgray =       "\033[30m\033[01m";
 $col_blue =         "\033[34m";
 $col_purple =       "\033[35m";
 $col_green =        "\033[32m";
