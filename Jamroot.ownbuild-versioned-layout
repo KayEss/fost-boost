@@ -141,6 +141,7 @@ rule boost-libraries ( libs * )
         lib $(curlib) $(dll-target:J) ;
 
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "29-" : "2.9" ;
+        boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "30-" : "3.0" ;
 
         boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.1" ;
         boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.1" ;
