@@ -14,7 +14,7 @@ then {
     export CPUCOUNT=`grep -c ^processor /proc/cpuinfo`
     time ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS \
         && time ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS
-    [ `which clang++` ] && test $1 -gt 40 \
+    [ `which clang++` ] && test $1 -gt 41 \
         && time ./bjam -j$CPUCOUNT toolset=clang debug link=shared $OPTIONS \
         && time ./bjam -j$CPUCOUNT toolset=clang release link=shared $OPTIONS
 }
