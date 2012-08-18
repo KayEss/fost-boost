@@ -36,6 +36,7 @@ then {
     JAMROOT=Jamroot.$1
 }
 else {
+    rm ../bjam
     cp -v 1_$1\_$2/bjam ..
 
     echo Making boost-build.jam
