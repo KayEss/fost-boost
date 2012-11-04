@@ -1,15 +1,15 @@
 #! /bin/bash
 cd `dirname $0`
 
-if [[ "$1" == "lucid" || "$1" == "maverick" || "$1" == "natty" || "$1" == "oneiric" || "$1" == "precise" || "$1" == "quantal" ]]
+if [[ "$1" == "lucid" || "$1" == "oneiric" || "$1" == "precise" || "$1" == "quantal" ]]
 then {
-    if [[ "$1" == "oneiric" || "$1" == "precise" || "$1" == "quantal" ]]
+    if [[ "$1" == "quantal" ]]
+    then {
+        BOOST_MAJOR=49
+    }
+    elif [[ "$1" == "oneiric" || "$1" == "precise" ]]
     then {
          BOOST_MAJOR=46
-    }
-    elif [[ "$1" == "maverick" || "$1" == "natty" ]]
-    then {
-         BOOST_MAJOR=42
     }
     elif [ "$1" == "lucid" ]
     then {
