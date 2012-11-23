@@ -169,6 +169,7 @@ rule boost-libraries ( libs * )
 }
 
 boost-libraries
+        boost-chrono
         boost-date_time
         boost-filesystem
         boost-graph
