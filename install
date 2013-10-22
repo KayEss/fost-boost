@@ -1,9 +1,13 @@
 #! /bin/bash
 cd `dirname $0`
 
-if [[ "$1" == "lucid" || "$1" == "precise" || "$1" == "quantal" || "$1" == "raring" ]]
+if [[ "$1" == "lucid" || "$1" == "precise" || "$1" == "quantal" || "$1" == "raring" || "$1" == "saucy" ]]
 then {
-    if [[ "$1" == "quantal" || "$1" == "raring" ]]
+    if [[ "$1" == "saucy" ]]
+    then {
+        BOOST_MAJOR=53
+    }
+    elif [[ "$1" == "quantal" || "$1" == "raring" ]]
     then {
         BOOST_MAJOR=49
     }
