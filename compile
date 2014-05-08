@@ -1,4 +1,5 @@
 #! /bin/bash
+set -e
 
 if test $1 -lt 40
 then {
@@ -12,11 +13,14 @@ fi
 if test -e /proc/
 then {
     export CPUCOUNT=`grep -c ^processor /proc/cpuinfo`
-    time ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS \
-        && time ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS
-    [ `which clang++` ] && test $1 -gt 42 \
-        && time ./bjam -j$CPUCOUNT toolset=clang debug link=shared $OPTIONS \
-        && time ./bjam -j$CPUCOUNT toolset=clang release link=shared $OPTIONS
+    time ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS
+    time ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS
+    if `which clang++` && test $1 -gt 42
+    then {
+        time ./bjam -j$CPUCOUNT toolset=clang debug link=shared $OPTIONS
+        time ./bjam -j$CPUCOUNT toolset=clang release link=shared $OPTIONS
+    }
+    fi
 }
 else {
     export CPUCOUNT=`sysctl -n hw.ncpu`

@@ -1,4 +1,5 @@
 #! /bin/bash
+set -e
 cd `dirname $0`
 
 if test -z $1
@@ -18,39 +19,40 @@ then {
 fi
 
 export VERSION=1_$MAJOR\_$MINOR
-echo Using Boost_$VERSION
+echo Using 1.$MAJOR.$MINOR
 
-if test ! -e $VERSION
+if test ! -e src
 then {
-    svn co http://svn.boost.org/svn/boost/tags/release/Boost_$VERSION $VERSION
+    git clone git@github.com:boostorg/boost.git src
+    cd src
 }
 else {
-    svn up $VERSION
+    cd src
+    git fetch
+}
+fi
+rm -rf project-config.jam* bin.v2 b2 bjam
+git checkout --force boost-1.$MAJOR.$MINOR
+git submodule init
+git submodule sync
+git submodule update
+
+if test -e ../gcc.jam.$VERSION.darwin
+then {
+    cp -v ../gcc.jam.$VERSION.darwin tools/build/v2/tools/gcc.jam
 }
 fi
 
-if test -e gcc.jam.$VERSION.darwin
+echo Create build tools
+if test ! -e bootstrap.sh
 then {
-    cp -v gcc.jam.$VERSION.darwin $VERSION/tools/build/v2/tools/gcc.jam
+    cd tools/jam
+    ./build_dist.sh
+    cp -v `ls -d stage/bin.*`/bjam ../..
+    cd ../..
 }
-fi
-
-cd $VERSION
-
-if test ! -e bjam
-then {
-    echo Create build tools
-    if test ! -e bootstrap.sh
-    then {
-        cd tools/jam
-        ./build_dist.sh
-        cp -v `ls -d stage/bin.*`/bjam ../..
-        cd ../..
-    }
-    else {
-        ./bootstrap.sh
-    }
-    fi
+else {
+    ./bootstrap.sh
 }
 fi
 
