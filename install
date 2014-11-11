@@ -1,7 +1,9 @@
 #! /bin/bash
 cd `dirname $0`
 
-if [[ $1 =~ [a-z]+ ]]
+HOST=${1-$(lsb_release -cs)}
+
+if [[ $HOST =~ [a-z]+ ]]
 then {
     if [[ "$1" == "utopic" ]]
     then {
@@ -33,7 +35,7 @@ then {
     rm -f ../boost-build.jam
 
     echo Making boost-version.jam
-    echo BUILD_DIRECTORY = \"../build.tmp/$1\" \;>../boost-version.jam
+    echo BUILD_DIRECTORY = \"../build.tmp/$HOST\" \;>../boost-version.jam
     echo BOOST_VERSION_MAJOR = \"$BOOST_MAJOR\" \;>> ../boost-version.jam
 
     echo Creating local bjam
@@ -45,7 +47,7 @@ then {
     echo echo --preserve-test-targets > ../python.opts.sh
     chmod +x ../python.opts.sh
 
-    JAMROOT=Jamroot.$1
+    JAMROOT=Jamroot.$HOST
 }
 else {
     rm ../bjam
