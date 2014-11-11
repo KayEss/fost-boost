@@ -5,27 +5,27 @@ HOST=${1-$(lsb_release -cs)}
 
 if [[ $HOST =~ [a-z]+ ]]
 then {
-    if [[ "$1" == "utopic" ]]
+    if [[ "$HOST" == "utopic" ]]
     then {
         BOOST_MAJOR=55
     }
-    elif [[ "$1" == "trusty" ]]
+    elif [[ "$HOST" == "trusty" ]]
     then {
         BOOST_MAJOR=54
     }
-    elif [[ "$1" == "saucy" ]]
+    elif [[ "$HOST" == "saucy" ]]
     then {
         BOOST_MAJOR=53
     }
-    elif [[ "$1" == "quantal" || "$1" == "raring" ]]
+    elif [[ "$HOST" == "quantal" || "$HOST" == "raring" ]]
     then {
         BOOST_MAJOR=49
     }
-    elif [[ "$1" == "precise" ]]
+    elif [[ "$HOST" == "precise" ]]
     then {
          BOOST_MAJOR=46
     }
-    elif [ "$1" == "lucid" ]
+    elif [ "$HOST" == "lucid" ]
     then {
         BOOST_MAJOR=40
     }
