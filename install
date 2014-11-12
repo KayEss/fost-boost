@@ -55,8 +55,15 @@ else {
     rm -f ../boost-build.jam
     echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
     echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
-    echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
+    if test $1 -gt 55
+    then {
+        echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/src \;>>../boost-build.jam
+    } else {
+        echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
+    }
+    fi
     echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
+
 
     echo Making boost-version.jam
     rm -f ../boost-version.jam
