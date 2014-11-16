@@ -1,21 +1,31 @@
-#! /bin/bash
+#! /usr/bin/env bash
 cd `dirname $0`
 
-if [[ "$1" == "lucid" || "$1" == "precise" || "$1" == "quantal" || "$1" == "raring" || "$1" == "saucy" ]]
+HOST=${1-$(lsb_release -cs)}
+
+if [[ $HOST =~ [a-z]+ ]]
 then {
-    if [[ "$1" == "saucy" ]]
+    if [[ "$HOST" == "utopic" ]]
+    then {
+        BOOST_MAJOR=55
+    }
+    elif [[ "$HOST" == "trusty" ]]
+    then {
+        BOOST_MAJOR=54
+    }
+    elif [[ "$HOST" == "saucy" ]]
     then {
         BOOST_MAJOR=53
     }
-    elif [[ "$1" == "quantal" || "$1" == "raring" ]]
+    elif [[ "$HOST" == "quantal" || "$HOST" == "raring" ]]
     then {
         BOOST_MAJOR=49
     }
-    elif [[ "$1" == "precise" ]]
+    elif [[ "$HOST" == "precise" ]]
     then {
          BOOST_MAJOR=46
     }
-    elif [ "$1" == "lucid" ]
+    elif [ "$HOST" == "lucid" ]
     then {
         BOOST_MAJOR=40
     }
@@ -25,7 +35,7 @@ then {
     rm -f ../boost-build.jam
 
     echo Making boost-version.jam
-    echo BUILD_DIRECTORY = \"../build.tmp/$1\" \;>../boost-version.jam
+    echo BUILD_DIRECTORY = \"../build.tmp/$HOST\" \;>../boost-version.jam
     echo BOOST_VERSION_MAJOR = \"$BOOST_MAJOR\" \;>> ../boost-version.jam
 
     echo Creating local bjam
@@ -37,7 +47,7 @@ then {
     echo echo --preserve-test-targets > ../python.opts.sh
     chmod +x ../python.opts.sh
 
-    JAMROOT=Jamroot.$1
+    JAMROOT=Jamroot.$HOST
 }
 else {
     rm ../bjam
@@ -47,8 +57,15 @@ else {
     rm -f ../boost-build.jam
     echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
     echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
-    echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
+    if test $1 -gt 55
+    then {
+        echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/src \;>>../boost-build.jam
+    } else {
+        echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
+    }
+    fi
     echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
+
 
     echo Making boost-version.jam
     rm -f ../boost-version.jam

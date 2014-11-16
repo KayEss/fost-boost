@@ -1,6 +1,5 @@
 @echo off
 pushd %0\..
-svn up .
 
 IF "%1"=="" (
     SET MAJOR=41

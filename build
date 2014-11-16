@@ -1,5 +1,6 @@
 #! /bin/bash
 cd `dirname $0`
+set -e
 
 if test -z $1
 then {
@@ -22,10 +23,9 @@ echo Using Boost_$VERSION
 
 if test ! -e $VERSION
 then {
-    svn co http://svn.boost.org/svn/boost/tags/release/Boost_$VERSION $VERSION
-}
-else {
-    svn up $VERSION
+    wget -O $VERSION.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.$MAJOR.$MINOR/boost_$VERSION.tar.bz2/download
+    tar xf $VERSION.tar.bz2
+    mv boost_$VERSION $VERSION
 }
 fi
 
