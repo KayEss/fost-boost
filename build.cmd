@@ -21,11 +21,12 @@ IF "%3"=="" (
 SET VERSION=1_%MAJOR%_%MINOR%
 
 IF NOT EXIST %VERSION% (
-    svn co http://svn.boost.org/svn/boost/tags/release/Boost_%VERSION% %VERSION%
+    python -c "from urllib import urlretrieve; urlretrieve('http://sourceforge.net/projects/boost/files/boost/1.%MAJOR%.%MINOR%/boost_%VERSION%.zip/download', '%VERSION%.zip')"
+    unzip %VERSION%.zip
+    rename boost_%VERSION% %VERSION%
 )
 IF NOT EXIST %VERSION%\bjam.exe (
     cd %VERSION%
-    svn up
     IF EXIST bootstrap.bat (
         call bootstrap.bat
     ) ELSE (
