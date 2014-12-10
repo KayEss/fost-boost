@@ -3,6 +3,24 @@ cd `dirname $0`
 
 HOST=${1-$(lsb_release -cs)}
 
+if test ! -e ./bjam
+then {
+    cd boost-build
+    echo Create build tools
+    ./bootstrap.sh
+    cp bjam ..
+    cd ..
+}
+fi
+cp ./bjam ..
+
+echo Making boost-build.jam
+rm -f ../boost-build.jam
+echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
+echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
+echo BOOST_BUILD ?= Boost/boost-build/src \;>>../boost-build.jam
+echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
+
 if [[ $HOST =~ [a-z]+ ]]
 then {
     if [[ "$HOST" == "utopic" ]]
@@ -28,20 +46,15 @@ then {
     elif [ "$HOST" == "lucid" ]
     then {
         BOOST_MAJOR=40
+    } else {
+        echo Unknown code name: $HOST
+        exit 1
     }
     fi
-
-    echo Removing boost-build.jam
-    rm -f ../boost-build.jam
 
     echo Making boost-version.jam
     echo BUILD_DIRECTORY = \"../build.tmp/$HOST\" \;>../boost-version.jam
     echo BOOST_VERSION_MAJOR = \"$BOOST_MAJOR\" \;>> ../boost-version.jam
-
-    echo Creating local bjam
-    echo \#\!/bin/bash>../bjam
-    echo `which bjam` \$\*>>../bjam
-    chmod +x ../bjam
 
     echo Creating target preservation script
     echo echo --preserve-test-targets > ../python.opts.sh
@@ -50,23 +63,6 @@ then {
     JAMROOT=Jamroot.$HOST
 }
 else {
-    rm ../bjam
-    cp -v 1_$1\_$2/bjam ..
-
-    echo Making boost-build.jam
-    rm -f ../boost-build.jam
-    echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>../boost-build.jam
-    echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>../boost-build.jam
-    if test $1 -gt 55
-    then {
-        echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/src \;>>../boost-build.jam
-    } else {
-        echo BOOST_BUILD ?= Boost/1_$1_$2/tools/build/v2 \;>>../boost-build.jam
-    }
-    fi
-    echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
-
-
     echo Making boost-version.jam
     rm -f ../boost-version.jam
     echo BOOST_VERSION_MAJOR = \"$1\" \;>> ../boost-version.jam

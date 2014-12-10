@@ -1,6 +1,6 @@
 #! /bin/bash
 cd `dirname $0`
-set -e
+set -ex
 
 if test -z $1
 then {
@@ -35,24 +35,24 @@ then {
 }
 fi
 
-cd $VERSION
-
-if test ! -e bjam
+if test ! -e ./bjam
 then {
+    cd boost-build
     echo Create build tools
-    if test ! -e bootstrap.sh
-    then {
-        cd tools/jam
-        ./build_dist.sh
-        cp -v `ls -d stage/bin.*`/bjam ../..
-        cd ../..
-    }
-    else {
-        ./bootstrap.sh
-    }
-    fi
+    ./bootstrap.sh
+    cp bjam ..
+    cd ..
 }
 fi
+
+cp bjam $VERSION
+cd $VERSION
+echo Making boost-build.jam
+rm -f boost-build.jam
+echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>boost-build.jam
+echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>boost-build.jam
+echo BOOST_BUILD ?= ../boost-build/src \;>>boost-build.jam
+echo boost-build \$\(BOOST_BUILD\) \;>>boost-build.jam
 
 ../compile $MAJOR $MINOR
 if test -z $1
