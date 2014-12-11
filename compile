@@ -1,13 +1,6 @@
 #! /bin/bash
 
-if test $1 -lt 40
-then {
-    OPTIONS="install --without-mpi --prefix=`pwd`/../boost"
-}
-else {
-    OPTIONS="install --layout=versioned --without-mpi --prefix=`pwd`/../boost"
-}
-fi
+OPTIONS="install --layout=versioned --without-mpi --prefix=`pwd`/../boost"
 
 if test -e /proc/
 then {
