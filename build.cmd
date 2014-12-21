@@ -22,8 +22,8 @@ SET VERSION=1_%MAJOR%_%MINOR%
 
 IF NOT EXIST %VERSION% (
     python -c "from urllib import urlretrieve; urlretrieve('http://sourceforge.net/projects/boost/files/boost/1.%MAJOR%.%MINOR%/boost_%VERSION%.zip/download', '%VERSION%.zip')"
-    unzip %VERSION%.zip
-    rename boost_%VERSION% %VERSION%
+    python -c "from zipfile import ZipFile; ZipFile('%VERSION%.zip').extractall()"
+    REN boost_%VERSION% %VERSION%
 )
 IF NOT EXIST %VERSION%\bjam.exe (
     cd %VERSION%
