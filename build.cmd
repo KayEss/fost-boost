@@ -18,6 +18,12 @@ IF "%3"=="" (
     SET LOCATION=%3
 )
 
+IF NOT EXIST boost-build/bjam.exe (
+    pushd boost-build
+    call bootstrap.bat
+    popd
+)
+
 SET VERSION=1_%MAJOR%_%MINOR%
 
 IF NOT EXIST %VERSION% (
@@ -25,18 +31,13 @@ IF NOT EXIST %VERSION% (
     python -c "from zipfile import ZipFile; ZipFile('%VERSION%.zip').extractall()"
     REN boost_%VERSION% %VERSION%
 )
-IF NOT EXIST %VERSION%\bjam.exe (
-    cd %VERSION%
-    IF EXIST bootstrap.bat (
-        call bootstrap.bat
-    ) ELSE (
-        cd tools\jam
-        call build_dist.bat
-        copy bin.ntx86\bjam.exe ..\..\..
-        cd ..\..\..
-    )
-    cd ..
-)
+COPY boost-build\bjam.exe %VERSION%
+del %VERSION%\boost-build.jam
+cmd /A /C echo BOOST_ROOT = $(.boost-build-file:D) ;>> %VERSION%\boost-build.jam
+cmd /A /C echo BOOST_BUILD = [ MATCH --boost-build=(.*) : $(ARGV) ] ;>> %VERSION%\boost-build.jam
+cmd /A /C echo BOOST_BUILD ?= ../boost-build/src ;>> %VERSION%\boost-build.jam
+cmd /A /C echo boost-build $(BOOST_BUILD) ;>> %VERSION%\boost-build.jam
+
 
 call compile.cmd %VERSION%
 
