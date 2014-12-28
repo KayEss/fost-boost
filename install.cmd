@@ -3,7 +3,7 @@ pushd %0\..
 
 IF NOT EXIST Boost/%3/../Boost/boost-build/bjam.exe (
     pushd Boost/%3/../Boost/boost-build
-    call boostrap.bat
+    call bootstrap.bat
     popd
 )
 copy Boost/%3/../Boost/boost-build/bjam.exe ..
