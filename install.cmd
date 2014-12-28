@@ -1,13 +1,17 @@
 @echo off
 pushd %0\..
 
-copy "%3\1_%1_%2\bjam.exe" ..
+IF NOT EXIST Boost/%3/../Boost/boost-build/bjam.exe (
+    pushd Boost/%3/../Boost/boost-build
+    call boostrap.bat
+    popd
+)
+copy Boost/%3/../Boost/boost-build/bjam.exe ..
 
 del ..\boost-build.jam
 cmd /A /C echo BOOST_ROOT = $(.boost-build-file:D) ;>> ..\boost-build.jam
 cmd /A /C echo BOOST_BUILD = [ MATCH --boost-build=(.*) : $(ARGV) ] ;>> ..\boost-build.jam
-if %1 LSS 56 cmd /A /C echo BOOST_BUILD ?= Boost/%3/../Boost/1_%1_%2/tools/build/v2 ;>> ..\boost-build.jam
-if %1 GTR 55 cmd /A /C echo BOOST_BUILD ?= Boost/%3/../Boost/1_%1_%2/tools/build/src ;>> ..\boost-build.jam
+cmd /A /C echo BOOST_BUILD ?= Boost/%3/../Boost/boost-build/src ;>> ..\boost-build.jam
 cmd /A /C echo boost-build $(BOOST_BUILD) ;>> ..\boost-build.jam
 
 del ..\boost-version.jam
