@@ -167,6 +167,7 @@ rule boost-libraries ( libs * )
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "47-" : "4.7" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "48-" : "4.8" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "49-" : "4.9.1" ;
+        boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "49-" : "4.9.2" ;
 
         boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "80" : "8.0" ;
         boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "90" : "9.0" ;
