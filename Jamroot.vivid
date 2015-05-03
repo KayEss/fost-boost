@@ -6,7 +6,7 @@ rule boost-libraries ( libs * )
 {
     local dll-targets = ;
     for local curlib in $(libs) {
-        searched-lib boost-$(curlib) : : <name>boost_$(curlib) ;
+        searched-lib boost-$(curlib)-dll : : <name>boost_$(curlib) ;
     }
 }
 
