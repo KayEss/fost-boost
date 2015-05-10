@@ -1,13 +1,14 @@
 #! /bin/bash
+set -e
 
-OPTIONS="install --layout=versioned --without-mpi --prefix=`pwd`/../boost"
+OPTIONS="install cxxflags=-std=c++14 --layout=versioned --without-mpi --prefix=$(pwd)/../boost"
 
 if test -e /proc/
 then {
-    export CPUCOUNT=`grep -c ^processor /proc/cpuinfo`
+    export CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
     time ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS \
         && time ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS
-    [ `which clang++` ] && test $1 -gt 42 \
+    [ $(which clang++) ] \
         && time ./bjam -j$CPUCOUNT toolset=clang debug link=shared $OPTIONS \
         && time ./bjam -j$CPUCOUNT toolset=clang release link=shared $OPTIONS
 }
