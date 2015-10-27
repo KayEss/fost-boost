@@ -181,6 +181,7 @@ rule boost-libraries ( libs * )
 }
 
 boost-libraries
+        boost-atomic
         boost-chrono
         boost-context
         boost-coroutine
