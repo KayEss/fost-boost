@@ -23,7 +23,11 @@ echo boost-build \$\(BOOST_BUILD\) \;>>../boost-build.jam
 
 if [[ $HOST =~ [a-z]+ ]]
 then {
-    if [[ "$HOST" == "utopic" || "$HOST" == "vivid" ]]
+    if [[ "$HOST" == "wily" || "$HOST" == "xenial" ]]
+    then {
+        BOOST_MAJOR=58
+    }
+    elif [[ "$HOST" == "utopic" || "$HOST" == "vivid" ]]
     then {
         BOOST_MAJOR=55
     }
