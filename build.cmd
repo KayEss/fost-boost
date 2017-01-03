@@ -2,7 +2,7 @@
 pushd %0\..
 
 IF "%1"=="" (
-    SET MAJOR=41
+    SET MAJOR=62
 ) ELSE (
     SET MAJOR=%1
 )
