@@ -25,11 +25,19 @@ rule boost-library-clang ( curlib : dll-lib : stem-name : libver : clang-version
         <file>$(filename-dbg-so-full:J)
         <variant>debug
         <toolset-clang:version>$(clang-version) ;
+    lib $(curlib) : :
+        <file>$(filename-dbg-so-full:J)
+        <variant>werror
+        <toolset-clang:version>$(clang-version) ;
 
     local filename-dbg-so = $(prefix-clang) $(name) $(clang) $(libver) "mt-" "d-" $(version-short) ".so" ;
     lib $(dll-lib) : $(curlib) :
         <file>$(filename-dbg-so:J)
         <variant>debug
+        <toolset-clang:version>$(clang-version) ;
+    lib $(dll-lib) : $(curlib) :
+        <file>$(filename-dbg-so:J)
+        <variant>werror
         <toolset-clang:version>$(clang-version) ;
 }
 
