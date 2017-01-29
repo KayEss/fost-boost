@@ -11,6 +11,9 @@ rule boost-libraries ( libs * )
 }
 
 boost-libraries
+        chrono
+        context
+        coroutine
         date_time
         filesystem
         graph
