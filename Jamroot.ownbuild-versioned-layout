@@ -154,6 +154,7 @@ rule boost-libraries ( libs * )
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "36-" : "3.6.2" ;
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "38-" : "3.8.0" ;
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "38-" : "3.8.1" ;
+        boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.0" ;
 
         boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.1" ;
         boost-library-darwin $(curlib) : $(dll-target:J) : $(name) : "42-" : "4.2.1" ;
@@ -164,6 +165,7 @@ rule boost-libraries ( libs * )
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "54-" : "5.4.0" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "54-" : "5.4.1" ;
         boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "62-" : "6.2.0" ;
+        boost-library-linux $(curlib) : $(dll-target:J) : $(name) : "63-" : "6.3.0" ;
 
         boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "80" : "8.0" ;
         boost-library-windows $(curlib) : $(dll-target:J) : $(name) : "90" : "9.0" ;
