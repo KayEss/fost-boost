@@ -29,27 +29,33 @@ then {
     }
     elif [[ "$HOST" == "utopic" || "$HOST" == "vivid" ]]
     then {
-        BOOST_MAJOR=55
+        echo BOOST_MAJOR=55 is too old
+        exit 2
     }
     elif [[ "$HOST" == "trusty" ]]
     then {
-        BOOST_MAJOR=54
+        echo BOOST_MAJOR=54 is too old
+        exit 2
     }
     elif [[ "$HOST" == "saucy" ]]
     then {
-        BOOST_MAJOR=53
+        echo BOOST_MAJOR=53 is too old
+        exit 2
     }
     elif [[ "$HOST" == "quantal" || "$HOST" == "raring" ]]
     then {
-        BOOST_MAJOR=49
+        echo BOOST_MAJOR=49 is too old
+        exit 2
     }
     elif [[ "$HOST" == "precise" ]]
     then {
-         BOOST_MAJOR=46
+         echo BOOST_MAJOR=46 is too old
+         exit 2
     }
     elif [ "$HOST" == "lucid" ]
     then {
-        BOOST_MAJOR=40
+        echo BOOST_MAJOR=40 is too old
+        exit 2
     } else {
         echo Unknown code name: $HOST
         exit 1
