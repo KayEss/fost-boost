@@ -33,25 +33,8 @@ then {
 }
 fi
 
-if test ! -e ./bjam
-then {
-    cd boost-build
-    echo Create build tools
-    ./bootstrap.sh
-    cp bjam ..
-    cd ..
-}
-fi
-
-cp bjam $VERSION
 cd $VERSION
-echo Making boost-build.jam
-rm -f boost-build.jam
-echo BOOST_ROOT = \$\(.boost-build-file:D\) \;>>boost-build.jam
-echo BOOST_BUILD = \[ MATCH --boost-build=\(.*\) : \$\(ARGV\) \] \;>>boost-build.jam
-echo BOOST_BUILD ?= ../boost-build/src \;>>boost-build.jam
-echo boost-build \$\(BOOST_BUILD\) \;>>boost-build.jam
-
+./bootstrap.sh
 ../compile $MAJOR $MINOR
 if test -z $1
 then {
