@@ -33,12 +33,6 @@ then {
 }
 fi
 
-if test -e gcc.jam.$VERSION.darwin
-then {
-    cp -v gcc.jam.$VERSION.darwin $VERSION/tools/build/v2/tools/gcc.jam
-}
-fi
-
 if test ! -e ./bjam
 then {
     cd boost-build
