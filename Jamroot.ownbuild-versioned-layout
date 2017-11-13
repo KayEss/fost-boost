@@ -155,6 +155,7 @@ rule boost-libraries ( libs * )
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "38-" : "3.8.0" ;
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "38-" : "3.8.1" ;
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.0" ;
+        boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "40-" : "4.0.1" ;
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "50-" : "5.0.0" ;
         boost-library-clang $(curlib) : $(dll-target:J) : $(name) : "60-" : "6.0.0" ;
 
