@@ -14,6 +14,6 @@ then {
 }
 else {
     export CPUCOUNT=`sysctl -n hw.ncpu`
-    time ./bjam -j$CPUCOUNT toolset=darwin architecture=x86 address-model=32_64 pch=off debug release $OPTIONS
+    time ./bjam -j$CPUCOUNT toolset=clang-darwin pch=off debug release $OPTIONS
 }
 fi
