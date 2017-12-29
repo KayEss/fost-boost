@@ -5,8 +5,14 @@ rule boost-library-clang ( curlib : dll-lib : stem-name : libver : clang-version
 {
     local prefix-clang = "boost/lib/libboost_" ;
     local clang = "-clang" ;
-    local version-short = "1_$(BOOST_VERSION_MAJOR)" ;
-    local version-full = "1.$(BOOST_VERSION_MAJOR).0" ;
+    local version-short ;
+    if $(BOOST_VERSION_MINOR) = "0"
+    {
+        version-short = "1_$(BOOST_VERSION_MAJOR)" ;
+    } else {
+        version-short = "1_$(BOOST_VERSION_MAJOR)_$(BOOST_VERSION_MINOR)" ;
+    }
+    local version-full = "1.$(BOOST_VERSION_MAJOR).$(BOOST_VERSION_MINOR)" ;
 
     local filename-rel-so-full = $(prefix-clang) $(name) $(clang) $(libver) "mt-" $(version-short) ".so." $(version-full) ;
     lib $(curlib) : :
@@ -101,7 +107,7 @@ rule boost-library-linux ( curlib : dll-lib : stem-name : libver : gcc-version )
     local prefix-lin = "boost/lib/libboost_" ;
     local gcc = "-gcc" ;
     local version-short = "1_$(BOOST_VERSION_MAJOR)" ;
-    local version-full = "1.$(BOOST_VERSION_MAJOR).0" ;
+    local version-full = "1.$(BOOST_VERSION_MAJOR).$(BOOST_VERSION_MINOR)" ;
 
     local filename-rel-so-full = $(prefix-lin) $(name) $(gcc) $(libver) "mt-" $(version-short) ".so." $(version-full) ;
     lib $(curlib) : : <file>$(filename-rel-so-full:J) <variant>release <target-os>linux <toolset-gcc:version>$(gcc-version) ;
