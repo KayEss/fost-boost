@@ -1,16 +1,18 @@
 #! /bin/bash
 set -ex
 
-OPTIONS="install cxxflags=-std=c++14 --layout=versioned --without-mpi --prefix=$(pwd)/../boost"
+CPPSTD=${CXXSTD:-"c++14"}
+OPTIONS="install cxxflags=-std=$CPPSTD --layout=versioned --without-mpi --prefix=$(pwd)/../boost"
 
 if test -e /proc/
 then {
     export CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
-    time ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS \
-        && time ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS
+    g++ -std=$CPPSTD --compile ../empty.cpp \
+        && time ./bjam -j$CPUCOUNT toolset=gcc debug link=shared $OPTIONS $EXTRA_OPTS \
+        && time ./bjam -j$CPUCOUNT toolset=gcc release link=shared $OPTIONS $EXTRA_OPTS
     [ $(which clang++) ] \
-        && time ./bjam -j$CPUCOUNT toolset=clang debug link=shared $OPTIONS $CLANG_OPTS \
-        && time ./bjam -j$CPUCOUNT toolset=clang release link=shared $OPTIONS $CLANG_OPTS
+        && time ./bjam -j$CPUCOUNT toolset=clang debug link=shared $OPTIONS $EXTRA_OPTS $CLANG_OPTS \
+        && time ./bjam -j$CPUCOUNT toolset=clang release link=shared $OPTIONS $EXTRA_OPTS $CLANG_OPTS
 }
 else {
     export CPUCOUNT=`sysctl -n hw.ncpu`
