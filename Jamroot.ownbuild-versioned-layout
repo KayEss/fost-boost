@@ -16,7 +16,7 @@ rule boost-libraries ( libs * )
         for tool in gcc clang {
             for var in debug release {
                 lib $(dll-target) :  :
-                    <file>$(prefix)/$(tool)/$(var)/$(libfile)
+                    <file>$(prefix)/$(tool)/$(var)/$(libfile)$(suffix)
                     <variant>$(var) <toolset>$(tool) ;
             }
         }
