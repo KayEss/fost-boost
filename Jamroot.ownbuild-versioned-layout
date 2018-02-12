@@ -19,6 +19,9 @@ rule boost-libraries ( libs * )
                     <file>$(prefix)/$(tool)/$(var)/$(libfile)$(suffix)
                     <variant>$(var) <toolset>$(tool) ;
             }
+            lib $(dll-target) : :
+                    <file>$(prefix)/$(tool)/debug/$(libfile)$(suffix)
+                    <variant>werror <toolset>$(tool) ;
         }
     }
 
