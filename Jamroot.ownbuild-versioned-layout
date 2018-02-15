@@ -10,18 +10,30 @@ rule boost-libraries ( libs * )
         dll-targets += $(dll-target) ;
 
         local prefix = boost/1_$(BOOST_VERSION_MAJOR)_$(BOOST_VERSION_MINOR) ;
-        local libfile = "lib/libboost_$(name).so" ;
+        local libfile = "lib/libboost_$(name)" ;
         local suffix = ".1.$(BOOST_VERSION_MAJOR).$(BOOST_VERSION_MINOR)" ;
 
         for tool in gcc clang {
             for var in debug release {
                 lib $(dll-target) :  :
-                    <file>$(prefix)/$(tool)/$(var)/$(libfile)$(suffix)
+                    <target-os>linux
+                    <file>$(prefix)/$(tool)/$(var)/$(libfile).so$(suffix)
                     <variant>$(var) <toolset>$(tool) ;
+                lib $(dll-target) :  :
+                    <target-os>darwin
+                    <file>$(prefix)/$(tool)/$(var)/$(libfile).dylib
+                    <variant>$(var) <toolset>$(tool) ;
+
             }
             lib $(dll-target) : :
-                    <file>$(prefix)/$(tool)/debug/$(libfile)$(suffix)
+                    <target-os>linux
+                    <file>$(prefix)/$(tool)/debug/$(libfile).so$(suffix)
                     <variant>werror <toolset>$(tool) ;
+            lib $(dll-target) : :
+                    <target-os>darwin
+                    <file>$(prefix)/$(tool)/debug/$(libfile).dylib
+                    <variant>werror <toolset>$(tool) ;
+
         }
     }
 
