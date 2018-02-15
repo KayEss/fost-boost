@@ -16,6 +16,8 @@ then {
 }
 else {
     export CPUCOUNT=`sysctl -n hw.ncpu`
-    time ./bjam -j$CPUCOUNT toolset=darwin architecture=x86 address-model=32_64 pch=off debug release $OPTIONS
+    time ./bjam -j$CPUCOUNT toolset=clang-darwin pch=off release --prefix=$(pwd)/../boost/$VERSION/clang/release  $OPTIONS $EXTRA_OPTS $CLANG_OPTS \
+        && time ./bjam -j$CPUCOUNT toolset=clang-darwin pch=off debug --prefix=$(pwd)/../boost/$VERSION/clang/debug $OPTIONS $EXTRA_OPTS $CLANG_OPTS
+
 }
 fi
