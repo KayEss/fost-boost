@@ -6,10 +6,10 @@ else()
     message(SEND_ERROR "Unknown compiler ID: ${CMAKE_CXX_COMPILER_ID}")
 endif()
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
-    set(build "debug")
-else()
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     set(build "release")
+else()
+    set(build "debug")
 endif()
 
 set(boost-folder boost/1_66_0/${toolset}/${build})
