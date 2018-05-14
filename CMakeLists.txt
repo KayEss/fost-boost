@@ -36,7 +36,10 @@ function(boostlib name)
     set(so ${CMAKE_CURRENT_SOURCE_DIR}/${boost-dir}/lib/libboost_${name}.${so-ext})
     set_property(TARGET boost_${name}
         PROPERTY IMPORTED_LOCATION ${so})
-    install(FILES ${so} ${so}.${boost-ver} DESTINATION lib)
+    install(FILES ${so} DESTINATION lib)
+    if(NOT APPLE)
+        install(FILES ${so}.${boost-ver} DESTINATION lib)
+    endif()
 endfunction()
 
 boostlib(date_time)
