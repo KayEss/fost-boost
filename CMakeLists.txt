@@ -19,6 +19,12 @@ set(BOOST_VMINOR 66
 set(BOOST_VPATCH 0
     CACHE STRING "Patch part for Boost verison. Normally 0")
 
+if(APPLE)
+    set(so-ext dylib)
+else()
+    set(so-ext so)
+endif()
+
 set(boost-ver ${BOOST_VMAJOR}.${BOOST_VMINOR}.${BOOST_VPATCH})
 set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build})
 
@@ -27,7 +33,7 @@ target_include_directories(boost INTERFACE ${boost-dir}/include/)
 
 function(boostlib name)
     add_library(boost_${name} SHARED IMPORTED GLOBAL)
-    set(so ${CMAKE_CURRENT_SOURCE_DIR}/${boost-dir}/lib/libboost_${name}.so)
+    set(so ${CMAKE_CURRENT_SOURCE_DIR}/${boost-dir}/lib/libboost_${name}.${so-ext})
     set_property(TARGET boost_${name}
         PROPERTY IMPORTED_LOCATION ${so})
     install(FILES ${so} ${so}.${boost-ver} DESTINATION lib)
