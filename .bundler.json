@@ -1,0 +1,6 @@
+{
+    "ignore": {
+        "startswith": ["1_", "boost", "colorbb"]
+    }
+}
+
