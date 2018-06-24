@@ -42,6 +42,7 @@ function(boostlib name)
     endif()
 endfunction()
 
+boostlib(coroutine)
 boostlib(date_time)
 boostlib(filesystem)
 boostlib(system)
