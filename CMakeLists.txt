@@ -17,7 +17,7 @@ set(BOOST_VMAJOR 1
 set(BOOST_VMINOR 66
     CACHE STRING "Minor part for Boost version. Use 59, or 61 to 67")
 set(BOOST_VPATCH 0
-    CACHE STRING "Patch part for Boost verison. Normally 0")
+    CACHE STRING "Patch part for Boost version. Normally 0")
 
 if(APPLE)
     set(so-ext dylib)
