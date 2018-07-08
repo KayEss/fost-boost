@@ -42,12 +42,12 @@ else()
     set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build})
 
     if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${boost-dir}/include)
-        message(STATUS "Building boost to get " ${boost-dir}/include)
+        message(STATUS "Building boost to get " ${boost-dir})
         execute_process(COMMAND ./build ${BOOST_VMINOR} ${BOOST_VPATCH}
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             RESULT_VARIABLE boost_build_status)
     else()
-        message(STATUS "Boost already found in " ${boost-dir}/include)
+        message(STATUS "Boost already found in " ${boost-dir})
     endif()
 
     add_library(boost INTERFACE)
