@@ -36,10 +36,3 @@ fi
 cd $VERSION
 ./bootstrap.sh
 ../compile $MAJOR $MINOR
-if test -z $1
-then {
-    cd ..
-    ./install $MAJOR $MINOR
-}
-fi
-
