@@ -47,7 +47,7 @@ else()
             WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
             RESULT_VARIABLE boost_build_status)
     else()
-        message(STATUS "Boost already found in " ${boost-dir})
+        message(STATUS "Locally built Boost already found in " ${boost-dir})
     endif()
 
     add_library(boost INTERFACE)
