@@ -28,7 +28,7 @@ else()
     set(BOOST_VMAJOR 1
         CACHE STRING "Major part for Boost version. Always 1")
     set(BOOST_VMINOR 66
-        CACHE STRING "Minor part for Boost version. Use 62 to 67")
+        CACHE STRING "Minor part for Boost version. Use 62 and up")
     set(BOOST_VPATCH 0
         CACHE STRING "Patch part for Boost version. Normally 0")
 
