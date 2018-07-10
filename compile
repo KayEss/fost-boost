@@ -2,7 +2,7 @@
 set -ex
 
 CPPSTD=${CXXSTD:-"c++17"}
-OPTIONS="install cxxflags=-std=$CPPSTD --define=BOOST_NO_AUTO_PTR --without-locale --without-mpi"
+OPTIONS="install cxxflags=-std=$CPPSTD --define=BOOST_NO_AUTO_PTR --without-fiber --without-locale --without-mpi --without-python"
 
 if test -e /proc/
 then {
