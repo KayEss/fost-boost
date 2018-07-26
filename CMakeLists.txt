@@ -60,7 +60,6 @@ else()
 
     function(boostlib name)
         if(NOT TARGET boost_${name})
-            message(STATUS "boost_${name} doing")
             add_library(boost_${name} SHARED IMPORTED GLOBAL)
             set(so ${boost-cmake-dir}/${boost-dir}/lib/libboost_${name}.${so-ext})
             set_property(TARGET boost_${name}
@@ -69,8 +68,6 @@ else()
             if(NOT APPLE)
                 install(FILES ${so}.${boost-ver} DESTINATION lib)
             endif()
-        else()
-            message(STATUS "boost_${name} already done")
         endif()
     endfunction()
 
