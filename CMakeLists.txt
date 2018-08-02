@@ -1,3 +1,6 @@
+cmake_minimum_required(VERSION 3.6)
+project(fost-boost)
+
 find_package(Boost 1.62.0)
 
 if(Boost_FOUND AND NOT BOOST_VMINOR)
