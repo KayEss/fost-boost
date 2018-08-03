@@ -48,10 +48,12 @@ else()
     set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build})
 
     if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${boost-dir}/include)
-        message(STATUS "Building boost to get " ${boost-dir})
-        execute_process(COMMAND ./build ${BOOST_VMINOR} ${BOOST_VPATCH}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-            RESULT_VARIABLE boost_build_status)
+        execute_process(COMMAND ./download ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        execute_process(COMMAND ./bootstrap ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        execute_process(COMMAND ./compile ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${toolset} ${build}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
     else()
         message(STATUS "Locally built Boost already found in " ${boost-dir})
     endif()
@@ -73,8 +75,6 @@ else()
             endif()
         endif()
     endfunction()
-
-    set(toolset ${toolset} PARENT_SCOPE)
 endif()
 
 boostlib(atomic)

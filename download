@@ -1,0 +1,22 @@
+#! /bin/bash
+cd `dirname $0`
+set -ex
+
+MAJOR=$1
+MINOR=$2
+PATCH=$3
+
+export VERSION=$MAJOR\_$MINOR\_$PATCH
+echo Using Boost_$VERSION
+
+if test ! -e $VERSION
+then {
+    if test ! -e $VERSION.tar.bz2
+    then {
+        wget -c -O $VERSION.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.$MAJOR.$MINOR/boost_$VERSION.tar.bz2/download
+    }
+    fi
+    tar xf $VERSION.tar.bz2
+    mv boost_$VERSION $VERSION
+}
+fi

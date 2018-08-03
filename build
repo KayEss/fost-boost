@@ -21,18 +21,10 @@ fi
 export VERSION=1_$MAJOR\_$MINOR
 echo Using Boost_$VERSION
 
-if test ! -e $VERSION
-then {
-    if test ! -e $VERSION.tar.bz2
-    then {
-        wget -c -O $VERSION.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.$MAJOR.$MINOR/boost_$VERSION.tar.bz2/download
-    }
-    fi
-    tar xf $VERSION.tar.bz2
-    mv boost_$VERSION $VERSION
-}
-fi
+./download 1 $MAJOR $MINOR
+./bootstrap 1 $MAJOR $MINOR
 
-cd $VERSION
-./bootstrap.sh
-../compile $MAJOR $MINOR
+./compile 1 $MAJOR $MINOR gcc release
+./compile 1 $MAJOR $MINOR gcc debug
+./compile 1 $MAJOR $MINOR clang release
+./compile 1 $MAJOR $MINOR clang debug

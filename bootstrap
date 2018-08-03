@@ -1,0 +1,13 @@
+#! /bin/bash
+cd `dirname $0`
+set -ex
+
+MAJOR=$1
+MINOR=$2
+PATCH=$3
+
+export VERSION=$MAJOR\_$MINOR\_$PATCH
+echo Bootstrapping Boost_$VERSION
+
+cd $VERSION
+./bootstrap.sh
