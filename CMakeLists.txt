@@ -66,6 +66,7 @@ else()
     function(boostlib name)
         if(NOT TARGET boost_${name})
             add_library(boost_${name} SHARED IMPORTED GLOBAL)
+            target_link_libraries(boost_${name} INTERFACE boost)
             set(so ${boost-cmake-dir}/${boost-dir}/lib/libboost_${name}.${so-ext})
             set_property(TARGET boost_${name}
                 PROPERTY IMPORTED_LOCATION ${so})
