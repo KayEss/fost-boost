@@ -13,7 +13,14 @@ if test ! -e $VERSION
 then {
     if test ! -e $VERSION.tar.bz2
     then {
-        wget -c -O $VERSION.tar.bz2 http://sourceforge.net/projects/boost/files/boost/$MAJOR.$MINOR.$PATCH/boost_$VERSION.tar.bz2/download
+        if [[ $MINOR -lt 64 ]]
+        then {
+            wget -c -O $VERSION.tar.bz2 http://sourceforge.net/projects/boost/files/boost/$MAJOR.$MINOR.$PATCH/boost_$VERSION.tar.bz2/download
+        }
+        else {
+            wget -c -O $VERSION.tar.bz2 https://dl.bintray.com/boostorg/release/$MAJOR.$MINOR.$PATCH/source/boost_$VERSION.tar.bz2
+        }
+        fi
     }
     fi
     tar xf $VERSION.tar.bz2
