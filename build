@@ -24,7 +24,11 @@ echo Using Boost_$VERSION
 ./download 1 $MAJOR $MINOR
 ./bootstrap 1 $MAJOR $MINOR
 
-./compile 1 $MAJOR $MINOR gcc release
-./compile 1 $MAJOR $MINOR gcc debug
+if test -e /proc/
+then {
+    ./compile 1 $MAJOR $MINOR gcc release
+    ./compile 1 $MAJOR $MINOR gcc debug
+}
+fi
 ./compile 1 $MAJOR $MINOR clang release
 ./compile 1 $MAJOR $MINOR clang debug
