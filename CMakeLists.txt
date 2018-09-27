@@ -60,7 +60,7 @@ else()
 
     add_library(boost INTERFACE)
     target_include_directories(boost INTERFACE ${boost-dir}/include/)
-    target_compile_definitions(boost INTERFACE BOOST_NO_AUTO_PTR 1)
+    target_compile_definitions(boost INTERFACE BOOST_NO_AUTO_PTR=1)
 
     set(boost-cmake-dir ${CMAKE_CURRENT_SOURCE_DIR})
 
