@@ -3,6 +3,14 @@ project(fost-boost)
 
 find_package(Boost 1.62.0)
 
+
+if(APPLE)
+    set(so-suffix -mt)
+    set(so-ext dylib)
+else()
+    set(so-ext so)
+endif()
+
 if(Boost_FOUND AND NOT BOOST_VMINOR)
     add_library(boost INTERFACE)
     target_include_directories(boost INTERFACE ${$Boost_INCLUDE_DIRS})
@@ -11,7 +19,7 @@ if(Boost_FOUND AND NOT BOOST_VMINOR)
             message(STATUS "Searching system for boost_${name}")
             find_package(Boost 1.62.0 COMPONENTS ${name})
             add_library(boost_${name} SHARED IMPORTED GLOBAL)
-            set(so ${Boost_LIBRARY_DIRS}/libboost_${name}.so)
+            set(so ${Boost_LIBRARY_DIRS}/libboost_${name}${so-suffix}.${so-ext})
             set_property(TARGET boost_${name}
                 PROPERTY IMPORTED_LOCATION ${so})
         endif()
@@ -37,12 +45,6 @@ else()
         CACHE STRING "Minor part for Boost version. Use 62 and up")
     set(BOOST_VPATCH 0
         CACHE STRING "Patch part for Boost version. Normally 0")
-
-    if(APPLE)
-        set(so-ext dylib)
-    else()
-        set(so-ext so)
-    endif()
 
     set(boost-ver ${BOOST_VMAJOR}.${BOOST_VMINOR}.${BOOST_VPATCH})
     set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build})
