@@ -13,7 +13,7 @@ endif()
 
 if(Boost_FOUND AND NOT BOOST_VMINOR)
     add_library(boost INTERFACE)
-    target_include_directories(boost INTERFACE ${$Boost_INCLUDE_DIRS})
+    target_include_directories(boost INTERFACE ${Boost_INCLUDE_DIRS})
     function(boostlib name)
         if(NOT TARGET boost_${name})
             message(STATUS "Searching system for boost_${name}")
