@@ -22,10 +22,10 @@ You can force it to download and build a Boost version even if you have a pre-pa
 
 ### Boost build configuration
 
-See the file (`compile`)[./compile] for the `bjam` invocation. The following environment variables are used:
+See the file [`compile`](./compile) for the `bjam` invocation. The following environment variables are used:
 
 * `CXXSTD` -- Defaults to `c++17`
-* `OPTIONS` -- Other `bjam` options. See (`compile`)[./compile] for the current options.
+* `OPTIONS` -- Other `bjam` options. See [`compile`](./compile) for the current options.
 * `EXTRA_OPTS` -- Defaults to an empty string. Can be used to send extra arguments to `bjam`.
 * `CLANG_OPTS` -- Defaults to an empty string. Used to pass extra options for clang only.
 
