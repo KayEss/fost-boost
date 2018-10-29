@@ -48,35 +48,36 @@ else()
 
     set(boost-ver ${BOOST_VMAJOR}.${BOOST_VMINOR}.${BOOST_VPATCH})
     set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build})
+    set(boost-cmake-dir ${CMAKE_CURRENT_SOURCE_DIR})
 
-    if(NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${boost-dir}/include)
+    if(NOT EXISTS ${boost-cmake-dir}/${boost-dir}/include)
         execute_process(COMMAND ./download ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+            WORKING_DIRECTORY ${boost-cmake-dir})
         execute_process(COMMAND ./bootstrap ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+            WORKING_DIRECTORY ${boost-cmake-dir})
         execute_process(COMMAND ./compile ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${toolset} ${build}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+            WORKING_DIRECTORY ${boost-cmake-dir})
     else()
         message(STATUS "Locally built Boost already found in " ${boost-dir})
     endif()
+    link_directories(${boost-cmake-dir}/${boost-dir}/lib/)
 
     add_library(boost INTERFACE)
     target_include_directories(boost INTERFACE ${boost-dir}/include/)
     target_compile_definitions(boost INTERFACE BOOST_NO_AUTO_PTR)
 
-    set(boost-cmake-dir ${CMAKE_CURRENT_SOURCE_DIR})
-
     function(boostlib name)
         if(NOT TARGET boost_${name})
             add_library(boost_${name} SHARED IMPORTED GLOBAL)
             target_link_libraries(boost_${name} INTERFACE boost)
-            set(so ${boost-cmake-dir}/${boost-dir}/lib/libboost_${name}.${so-ext})
+            if(NOT APPLE)
+                set(so ${boost-cmake-dir}/${boost-dir}/lib/libboost_${name}.${so-ext}.${boost-ver})
+            else()
+                set(so ${boost-cmake-dir}/${boost-dir}/lib/libboost_${name}.${so-ext})
+            endif()
             set_property(TARGET boost_${name}
                 PROPERTY IMPORTED_LOCATION ${so})
             install(FILES ${so} DESTINATION lib)
-            if(NOT APPLE)
-                install(FILES ${so}.${boost-ver} DESTINATION lib)
-            endif()
         endif()
     endfunction()
 endif()
