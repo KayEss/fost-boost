@@ -1,3 +1,4 @@
-1_*
-boost
-git/
+/1_*
+/boost/
+/build.tmp/
+/git/

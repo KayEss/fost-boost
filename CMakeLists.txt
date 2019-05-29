@@ -1,8 +1,9 @@
 cmake_minimum_required(VERSION 3.6)
 project(fost-boost)
 
-find_package(Boost 1.62.0)
-
+if(NOT BOOST_SKIP_SEARCH)
+    find_package(Boost 1.62.0)
+endif()
 
 if(APPLE)
     set(so-suffix -mt)
@@ -47,7 +48,7 @@ else()
         CACHE STRING "Patch part for Boost version. Normally 0")
 
     set(boost-ver ${BOOST_VMAJOR}.${BOOST_VMINOR}.${BOOST_VPATCH})
-    set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build})
+    set(boost-dir boost/${BOOST_VMAJOR}_${BOOST_VMINOR}_${BOOST_VPATCH}/${toolset}/${build}${BOOST_DIRECTORY_SUFFIX})
     set(boost-cmake-dir ${CMAKE_CURRENT_SOURCE_DIR})
 
     if(NOT EXISTS ${boost-cmake-dir}/${boost-dir}/include)
@@ -55,7 +56,7 @@ else()
             WORKING_DIRECTORY ${boost-cmake-dir})
         execute_process(COMMAND ./bootstrap ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
             WORKING_DIRECTORY ${boost-cmake-dir})
-        execute_process(COMMAND ./compile ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${toolset} ${build}
+        execute_process(COMMAND ./compile ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${toolset} ${build} ${BOOST_DIRECTORY_SUFFIX}
             WORKING_DIRECTORY ${boost-cmake-dir})
     else()
         message(STATUS "Locally built Boost already found in " ${boost-dir})
