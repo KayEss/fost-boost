@@ -65,7 +65,7 @@ else()
 
     add_library(boost INTERFACE)
     target_include_directories(boost INTERFACE ${boost-dir}/include/)
-    target_compile_definitions(boost INTERFACE BOOST_NO_AUTO_PTR)
+    target_compile_definitions(boost INTERFACE BOOST_NO_AUTO_PTR=)
 
     function(boostlib name)
         if(NOT TARGET boost_${name})
