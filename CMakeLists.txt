@@ -1,7 +1,14 @@
 cmake_minimum_required(VERSION 3.6)
 project(fost-boost)
 
-if(NOT BOOST_SKIP_SEARCH)
+
+set(BOOST_SEARCH YES
+    CACHE STRING "Turn on to stop cmake from searching for a version of Boost")
+set(BOOST_DIRECTORY_SUFFIX ""
+    CACHE STRING "String appended (with a dash) to the end of Boost's directory")
+
+
+if(BOOST_SEARCH)
     find_package(Boost 1.62.0)
 endif()
 
