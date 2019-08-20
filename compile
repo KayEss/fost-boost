@@ -20,10 +20,10 @@ OPTIONS="install cxxflags=-std=$CPPSTD define=BOOST_NO_AUTO_PTR= \
 if test -e /proc/
 then {
     export CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
-    time ./bjam -j$CPUCOUNT toolset=$TOOLSET $VARIANT link=shared --prefix=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX $OPTIONS $EXTRA_OPTS $BOOST_EXTRA_OPTS
+    time ./b2 -j$CPUCOUNT toolset=$TOOLSET $VARIANT link=shared --prefix=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX $OPTIONS $EXTRA_OPTS $BOOST_EXTRA_OPTS
 }
 else {
     export CPUCOUNT=$(sysctl -n hw.ncpu)
-    time ./bjam -j$CPUCOUNT toolset=clang-darwin pch=off release --prefix=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX $OPTIONS $EXTRA_OPTS $CLANG_OPTS $BOOST_EXTRA_OPTS
+    time ./b2 -j$CPUCOUNT toolset=clang-darwin pch=off release --prefix=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX $OPTIONS $EXTRA_OPTS $CLANG_OPTS $BOOST_EXTRA_OPTS
 }
 fi
