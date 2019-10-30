@@ -1,15 +1,16 @@
 #! /bin/bash
-cd `dirname $0`
+cd $(dirname $0)
 set -ex
 
 MAJOR=$1
 MINOR=$2
 PATCH=$3
+SUFFIX=$4
 
 export VERSION=$MAJOR\_$MINOR\_$PATCH
-echo Using Boost_$VERSION
+echo Using Boost_$VERSION $SUFFIX
 
-if test ! -e $VERSION
+if test ! -e $VERSION$SUFFIX
 then {
     if test ! -e $VERSION.tar.bz2
     then {
@@ -24,6 +25,6 @@ then {
     }
     fi
     tar xf $VERSION.tar.bz2
-    mv boost_$VERSION $VERSION
+    mv boost_$VERSION $VERSION$SUFFIX
 }
 fi

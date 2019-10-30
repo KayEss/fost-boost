@@ -1,4 +1,5 @@
 #! /bin/bash
+cd $(dirname $0)
 set -ex
 
 MAJOR=$1
@@ -9,21 +10,26 @@ VARIANT=$5
 SUFFIX=$6
 
 export VERSION=$MAJOR\_$MINOR\_$PATCH
-echo Building Boost_$VERSION $TOOLSET $VARIANT
+echo Building Boost_$VERSION $TOOLSET $VARIANT "$SUFFIX"
 
-cd $VERSION
+cd "$VERSION$SUFFIX"
 
 CPPSTD=${CXXSTD:-"c++17"}
 OPTIONS="install cxxflags=-std=$CPPSTD define=BOOST_NO_AUTO_PTR= \
     --without-fiber --without-locale --without-mpi --without-python"
 
+PREFIX=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX
+
 if test -e /proc/
 then {
     export CPUCOUNT=$(grep -c ^processor /proc/cpuinfo)
-    time ./b2 -j$CPUCOUNT toolset=$TOOLSET $VARIANT link=shared --prefix=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX $OPTIONS $EXTRA_OPTS $BOOST_EXTRA_OPTS
+    COMMAND="./b2 -j$CPUCOUNT toolset=$TOOLSET $VARIANT link=shared --prefix=$PREFIX $OPTIONS $EXTRA_OPTS $BOOST_EXTRA_OPTS"
 }
 else {
     export CPUCOUNT=$(sysctl -n hw.ncpu)
-    time ./b2 -j$CPUCOUNT toolset=clang-darwin pch=off release --prefix=$(pwd)/../boost/$VERSION/$TOOLSET/$VARIANT$SUFFIX $OPTIONS $EXTRA_OPTS $CLANG_OPTS $BOOST_EXTRA_OPTS
+    COMMAND="./b2 -j$CPUCOUNT toolset=clang-darwin pch=off $VARIANT --prefix=$PREFIX $OPTIONS $EXTRA_OPTS $CLANG_OPTS $BOOST_EXTRA_OPTS"
 }
 fi
+
+time $COMMAND
+echo "cd $(pwd)\\n$COMMAND" > $PREFIX/bulld-command.txt

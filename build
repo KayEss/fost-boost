@@ -1,5 +1,5 @@
 #! /bin/bash
-cd `dirname $0`
+cd $(dirname $0)
 set -ex
 
 if test -z $1
@@ -21,14 +21,14 @@ fi
 export VERSION=1_$MAJOR\_$MINOR
 echo Using Boost_$VERSION
 
-./download 1 $MAJOR $MINOR
-./bootstrap 1 $MAJOR $MINOR
+./download 1 $MAJOR $MINOR $3
+./bootstrap 1 $MAJOR $MINOR $3
 
 if test -e /proc/
 then {
-    ./compile 1 $MAJOR $MINOR gcc release
-    ./compile 1 $MAJOR $MINOR gcc debug
+    ./compile 1 $MAJOR $MINOR gcc release $3
+    ./compile 1 $MAJOR $MINOR gcc debug $3
 }
 fi
-./compile 1 $MAJOR $MINOR clang release
-./compile 1 $MAJOR $MINOR clang debug
+./compile 1 $MAJOR $MINOR clang release $3
+./compile 1 $MAJOR $MINOR clang debug $3

@@ -59,9 +59,9 @@ else()
     set(boost-cmake-dir ${CMAKE_CURRENT_SOURCE_DIR})
 
     if(NOT EXISTS ${boost-cmake-dir}/${boost-dir}/include)
-        execute_process(COMMAND ./download ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
+        execute_process(COMMAND ./download ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${BOOST_DIRECTORY_SUFFIX}
             WORKING_DIRECTORY ${boost-cmake-dir})
-        execute_process(COMMAND ./bootstrap ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH}
+        execute_process(COMMAND ./bootstrap ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${BOOST_DIRECTORY_SUFFIX}
             WORKING_DIRECTORY ${boost-cmake-dir})
         execute_process(COMMAND ./compile ${BOOST_VMAJOR} ${BOOST_VMINOR} ${BOOST_VPATCH} ${toolset} ${build} ${BOOST_DIRECTORY_SUFFIX}
             WORKING_DIRECTORY ${boost-cmake-dir})
