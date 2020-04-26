@@ -6,6 +6,8 @@ set(BOOST_SEARCH YES
     CACHE STRING "Turn on to stop cmake from searching for a version of Boost")
 set(BOOST_DIRECTORY_SUFFIX ""
     CACHE STRING "String appended (with a dash) to the end of Boost's directory")
+set(BOOST_TOOLSET ""
+    CACHE STRING "Toolset to pass to Boost build")
 
 
 if(BOOST_SEARCH)
@@ -33,7 +35,9 @@ if(Boost_FOUND AND NOT BOOST_VMINOR)
         endif()
     endfunction()
 else()
-    if(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
+    if(NOT "${BOOST_TOOLSET}" STREQUAL "")
+        set(toolset "${BOOST_TOOLSET}")
+    elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU")
         set(toolset "gcc")
     elseif(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "AppleClang")
         set(toolset "clang")
